@@ -19,10 +19,7 @@
     </head>
     <body>
         <div id="app">
-            <div class="container">
-                <navbar></navbar>
-                <puns></puns>
-            </div>
+            <router-view></router-view>
         </div>
         <script src="{{ asset('js/app.js') }}"></script>
     </body>

@@ -17,8 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//List puns
-Route::get('pun', 'PunController@index');
+//List popular puns
+Route::get('popular', 'PunController@popular');
+
+//List recent puns
+Route::get('recent', 'PunController@recent');
 
 //List single pun
 Route::get('pun/{id}', 'PunController@show');

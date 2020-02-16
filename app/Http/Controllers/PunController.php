@@ -14,12 +14,17 @@ class PunController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function popular()
     {
         //Get puns
-        $puns = Pun::orderBy('created_at', 'desc')->paginate(10);
+        $puns = Pun::select()->paginate(10);
 
         //Return collection of puns as a resource
+        return PunResource::collection($puns);
+    }
+
+    public function recent() {
+        $puns = Pun::orderBy('created_at', 'desc')->paginate(10);
         return PunResource::collection($puns);
     }
 
