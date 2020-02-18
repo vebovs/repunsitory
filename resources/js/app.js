@@ -11,8 +11,6 @@ import Login from './components/Login.vue';
 
 window.vue = require('vue')
 
-//Look at fruitcake logs for cors problems
-
 axios.defaults.baseURL = 'http://localhost:8000/api';
 
 Vue.use(VueRouter);

@@ -8,11 +8,11 @@
                 </div>
                 <div class="form-group">
                     <label for="email">E-mail</label>
-                    <input type="email" class="form-control">
+                    <input v-model="email" type="email" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control">
+                    <input v-model="password" type="password" class="form-control">
                 </div>
                 <button v-on:click="register" type="submit" class="btn btn-primary mt-2">Register</button>
             </form>
@@ -34,7 +34,8 @@ export default {
     },
     methods: {
         register() {
-            var app = this
+            // why does it fire twice
+            var app = this;
                 this.$auth.register({
                     data: {
                         username: app.username,
@@ -47,9 +48,26 @@ export default {
                     error: function (resp) {
                         app.error = true;
                         app.errors = resp.response.data.errors;
+                        console.log(app.errors);
                     },
                     redirect: null
-                });    
+                });  
+
+                /*fetch('api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: app.email,
+                        username: app.username,
+                        password: app.password
+                    })
+                })
+                .then(res => res.json())
+                .then(data => console.log(data))
+                .catch(err => console.error(err));*/
         }
     }
 }

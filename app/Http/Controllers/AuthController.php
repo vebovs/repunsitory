@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use JWTAuth;
+use App\User;
+use App\Http\Requests\RegisterFormRequest;
 
 class AuthController extends Controller
 {
@@ -13,6 +17,7 @@ class AuthController extends Controller
         $user->username = $request->username;
         $user->password = bcrypt($request->password);
         $user->save();
+
         return response([
             'status' => 'success',
             'data' => $user

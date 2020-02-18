@@ -3263,6 +3263,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     register: function register() {
+      // why does it fire twice
       var app = this;
       this.$auth.register({
         data: {
@@ -3276,9 +3277,25 @@ __webpack_require__.r(__webpack_exports__);
         error: function error(resp) {
           app.error = true;
           app.errors = resp.response.data.errors;
+          console.log(app.errors);
         },
         redirect: null
       });
+      /*fetch('api/auth/register', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              email: app.email,
+              username: app.username,
+              password: app.password
+          })
+      })
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(err => console.error(err));*/
     }
   }
 });
@@ -5121,9 +5138,59 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _vm._m(0),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "email" } }, [_vm._v("E-mail")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.email,
+                      expression: "email"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "email" },
+                  domProps: { value: _vm.email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.email = $event.target.value
+                    }
+                  }
+                })
+              ]),
               _vm._v(" "),
-              _vm._m(1),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "password" } }, [
+                  _vm._v("Password")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.password,
+                      expression: "password"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "password" },
+                  domProps: { value: _vm.password },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.password = $event.target.value
+                    }
+                  }
+                })
+              ]),
               _vm._v(" "),
               _c(
                 "button",
@@ -5140,28 +5207,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "email" } }, [_vm._v("E-mail")]),
-      _vm._v(" "),
-      _c("input", { staticClass: "form-control", attrs: { type: "email" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "password" } }, [_vm._v("Password")]),
-      _vm._v(" "),
-      _c("input", { staticClass: "form-control", attrs: { type: "password" } })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -20252,8 +20298,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-window.vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); //Look at fruitcake logs for cors problems
-
+window.vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.baseURL = 'http://localhost:8000/api';
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODULE_3___default.a, axios__WEBPACK_IMPORTED_MODULE_2___default.a);
