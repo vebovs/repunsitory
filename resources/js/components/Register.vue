@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <form class="m-4" @submit.prevent="register" v-if="!success" method="post">
+            <form v-on:submit="register" class="m-4" @submit.prevent="register" v-if="!success" method="post">
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input v-model="username" type="text" class="form-control">
@@ -14,7 +14,7 @@
                     <label for="password">Password</label>
                     <input v-model="password" type="password" class="form-control">
                 </div>
-                <button v-on:click="register" type="submit" class="btn btn-primary mt-2">Register</button>
+                <button type="submit" class="btn btn-primary mt-2">Register</button>
             </form>
         </div>
     </div>
@@ -35,6 +35,7 @@ export default {
     methods: {
         register() {
             // why does it fire twice
+            console.log("firing");
             var app = this;
                 this.$auth.register({
                     data: {
@@ -48,7 +49,6 @@ export default {
                     error: function (resp) {
                         app.error = true;
                         app.errors = resp.response.data.errors;
-                        console.log(app.errors);
                     },
                     redirect: null
                 });  

@@ -2,7 +2,6 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-import AxiosPlugin from 'vue-axios-cors';
 import App from './components/App.vue';
 import Dashboard from './components/Dashboard.vue';
 import Home from './components/Home.vue';
@@ -56,6 +55,8 @@ Vue.use(require('@websanova/vue-auth'), {
    http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
    router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
 });
+
+App.router = Vue.router;
 
 const app = new Vue({
     el: '#app',

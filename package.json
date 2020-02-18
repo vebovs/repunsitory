@@ -26,7 +26,6 @@
         "vue-template-compiler": "^2.6.11",
         "vue-axios": "^2.1.5",
         "vue-loader": "^15.9.0",
-        "@websanova/vue-auth": "^2.21.16-beta",
-        "vue-axios-cors": "^1.0.1"
+        "@websanova/vue-auth": "^2.21.16-beta"
     }
 }
