@@ -13,21 +13,21 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
 
-Route::post('auth/register', 'AuthController@register');
+Route::prefix('auth')->group(function () {
 
-Route::post('auth/login', 'AuthController@login');
+  Route::post('register', 'AuthController@register');
+  Route::post('login', 'AuthController@login');
+  Route::get('refresh', 'AuthController@refresh');
 
-Route::group(['middleware' => 'jwt.auth'], function(){
-  Route::get('auth/user', 'AuthController@user');
-  Route::post('auth/logout', 'AuthController@logout');
-});
-
-Route::group(['middleware' => 'jwt.refresh'], function(){
-  Route::get('auth/refresh', 'AuthController@refresh');
+  Route::group(['middleware' => 'auth:api'], function(){
+      Route::get('user', 'AuthController@user');
+      Route::post('logout', 'AuthController@logout');
+  });
+  
 });
 
 //List popular puns

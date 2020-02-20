@@ -37,7 +37,7 @@ export default {
             // why does it fire twice
             console.log("firing");
             var app = this;
-                this.$auth.register({
+                /*this.$auth.register({
                     data: {
                         username: app.username,
                         email: app.email,
@@ -51,9 +51,9 @@ export default {
                         app.errors = resp.response.data.errors;
                     },
                     redirect: null
-                });  
+                });*/  
 
-                /*fetch('api/auth/register', {
+                fetch('api/auth/register', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -63,11 +63,12 @@ export default {
                         email: app.email,
                         username: app.username,
                         password: app.password
+
                     })
                 })
                 .then(res => res.json())
                 .then(data => console.log(data))
-                .catch(err => console.error(err));*/
+                .catch(err => console.error(err));
         }
     }
 }

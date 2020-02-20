@@ -26,7 +26,7 @@ export default {
     methods: {
       login(){
         var app = this;
-        this.$auth.login({
+        /*this.$auth.login({
             params: {
               email: app.email,
               password: app.password
@@ -38,9 +38,9 @@ export default {
             rememberMe: true,
             redirect: null,
             fetchUser: true
-        });
+        });*/
         
-        /*fetch('api/auth/login', {
+        fetch('api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -53,7 +53,7 @@ export default {
                 })
                 .then(res => res.json())
                 .then(data => console.log(data))
-                .catch(err => console.error(err));*/
+                .catch(err => console.error(err));
       },
     }
 }

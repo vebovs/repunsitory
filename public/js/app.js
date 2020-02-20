@@ -3168,33 +3168,37 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     login: function login() {
       var app = this;
-      this.$auth.login({
-        params: {
+      /*this.$auth.login({
+          params: {
+            email: app.email,
+            password: app.password
+          }, 
+          success: function () {},
+          error: function (err) {
+              console.log(err);
+          },
+          rememberMe: true,
+          redirect: null,
+          fetchUser: true
+      });*/
+
+      fetch('api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
           email: app.email,
           password: app.password
-        },
-        success: function success() {},
-        error: function error(err) {
-          console.log(err);
-        },
-        rememberMe: true,
-        redirect: null,
-        fetchUser: true
+        })
+      }).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        return console.log(data);
+      })["catch"](function (err) {
+        return console.error(err);
       });
-      /*fetch('api/auth/login', {
-                  method: 'POST',
-                  headers: {
-                      'Accept': 'application/json',
-                      'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({
-                      email: app.email,
-                      password: app.password
-                  })
-              })
-              .then(res => res.json())
-              .then(data => console.log(data))
-              .catch(err => console.error(err));*/
     }
   }
 });
@@ -3335,36 +3339,40 @@ __webpack_require__.r(__webpack_exports__);
       // why does it fire twice
       console.log("firing");
       var app = this;
-      this.$auth.register({
-        data: {
-          username: app.username,
-          email: app.email,
-          password: app.password
-        },
-        success: function success() {
-          app.success = true;
-        },
-        error: function error(resp) {
-          app.error = true;
-          app.errors = resp.response.data.errors;
-        },
-        redirect: null
-      });
-      /*fetch('api/auth/register', {
-          method: 'POST',
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-              email: app.email,
+      /*this.$auth.register({
+          data: {
               username: app.username,
+              email: app.email,
               password: app.password
-          })
-      })
-      .then(res => res.json())
-      .then(data => console.log(data))
-      .catch(err => console.error(err));*/
+          }, 
+          success: function () {
+              app.success = true
+          },
+          error: function (resp) {
+              app.error = true;
+              app.errors = resp.response.data.errors;
+          },
+          redirect: null
+      });*/
+
+      fetch('api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: app.email,
+          username: app.username,
+          password: app.password
+        })
+      }).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        return console.log(data);
+      })["catch"](function (err) {
+        return console.error(err);
+      });
     }
   }
 });
@@ -19517,6 +19525,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Home_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Home.vue */ "./resources/js/components/Home.vue");
 /* harmony import */ var _components_Register_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Register.vue */ "./resources/js/components/Register.vue");
 /* harmony import */ var _components_Login_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Login.vue */ "./resources/js/components/Login.vue");
+/* harmony import */ var _components_auth_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/auth.js */ "./resources/js/components/auth.js");
+/* harmony import */ var _websanova_vue_auth__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @websanova/vue-auth */ "./node_modules/@websanova/vue-auth/src/index.js");
+/* harmony import */ var _websanova_vue_auth__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_websanova_vue_auth__WEBPACK_IMPORTED_MODULE_10__);
+
+
 
 
 
@@ -19534,7 +19547,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: [{
     path: '/',
     name: 'home',
-    component: _components_Home_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _components_Home_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    meta: {
+      auth: undefined
+    }
   }, {
     path: '/register',
     name: 'register',
@@ -19560,12 +19576,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history'
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.router = router;
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! @websanova/vue-auth */ "./node_modules/@websanova/vue-auth/src/index.js"), {
-  auth: __webpack_require__(/*! @websanova/vue-auth/drivers/auth/bearer.js */ "./node_modules/@websanova/vue-auth/drivers/auth/bearer.js"),
-  http: __webpack_require__(/*! @websanova/vue-auth/drivers/http/axios.1.x.js */ "./node_modules/@websanova/vue-auth/drivers/http/axios.1.x.js"),
-  router: __webpack_require__(/*! @websanova/vue-auth/drivers/router/vue-router.2.x.js */ "./node_modules/@websanova/vue-auth/drivers/router/vue-router.2.x.js")
-});
 _components_App_vue__WEBPACK_IMPORTED_MODULE_4__["default"].router = vue__WEBPACK_IMPORTED_MODULE_0___default.a.router;
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_websanova_vue_auth__WEBPACK_IMPORTED_MODULE_10___default.a, _components_auth_js__WEBPACK_IMPORTED_MODULE_9__["default"]);
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   router: router,
@@ -19955,6 +19967,66 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Register_vue_vue_type_template_id_97358ae4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/auth.js":
+/*!*****************************************!*\
+  !*** ./resources/js/components/auth.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _websanova_vue_auth_drivers_auth_bearer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @websanova/vue-auth/drivers/auth/bearer */ "./node_modules/@websanova/vue-auth/drivers/auth/bearer.js");
+/* harmony import */ var _websanova_vue_auth_drivers_auth_bearer__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_websanova_vue_auth_drivers_auth_bearer__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _websanova_vue_auth_drivers_http_axios_1_x__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @websanova/vue-auth/drivers/http/axios.1.x */ "./node_modules/@websanova/vue-auth/drivers/http/axios.1.x.js");
+/* harmony import */ var _websanova_vue_auth_drivers_http_axios_1_x__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_websanova_vue_auth_drivers_http_axios_1_x__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _websanova_vue_auth_drivers_router_vue_router_2_x__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @websanova/vue-auth/drivers/router/vue-router.2.x */ "./node_modules/@websanova/vue-auth/drivers/router/vue-router.2.x.js");
+/* harmony import */ var _websanova_vue_auth_drivers_router_vue_router_2_x__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_websanova_vue_auth_drivers_router_vue_router_2_x__WEBPACK_IMPORTED_MODULE_2__);
+
+
+ // Auth base configuration some of this options
+// can be override in method calls
+
+var config = {
+  auth: _websanova_vue_auth_drivers_auth_bearer__WEBPACK_IMPORTED_MODULE_0___default.a,
+  http: _websanova_vue_auth_drivers_http_axios_1_x__WEBPACK_IMPORTED_MODULE_1___default.a,
+  router: _websanova_vue_auth_drivers_router_vue_router_2_x__WEBPACK_IMPORTED_MODULE_2___default.a,
+  tokenDefaultName: 'laravel-vue-spa',
+  tokenStore: ['localStorage'],
+  rolesVar: 'role',
+  registerData: {
+    url: 'auth/register',
+    method: 'POST',
+    redirect: '/login'
+  },
+  loginData: {
+    url: 'auth/login',
+    method: 'POST',
+    redirect: '',
+    fetchUser: true
+  },
+  logoutData: {
+    url: 'auth/logout',
+    method: 'POST',
+    redirect: '/',
+    makeRequest: true
+  },
+  fetchData: {
+    url: 'auth/user',
+    method: 'GET',
+    enabled: true
+  },
+  refreshData: {
+    url: 'auth/refresh',
+    method: 'GET',
+    enabled: true,
+    interval: 30
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (config);
 
 /***/ }),
 
