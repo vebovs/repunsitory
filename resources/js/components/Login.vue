@@ -40,7 +40,7 @@ export default {
             fetchUser: true
         });*/
         
-        fetch('api/auth/login', {
+        fetch('api/login', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',

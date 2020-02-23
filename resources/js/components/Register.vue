@@ -52,8 +52,7 @@ export default {
                     },
                     redirect: null
                 });*/  
-
-                fetch('api/auth/register', {
+                fetch('api/register', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -63,7 +62,6 @@ export default {
                         email: app.email,
                         username: app.username,
                         password: app.password
-
                     })
                 })
                 .then(res => res.json())

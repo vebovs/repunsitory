@@ -3,12 +3,10 @@ import VueRouter from 'vue-router';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import App from './components/App.vue';
-import Dashboard from './components/Dashboard.vue';
+import Dashboard from './components/user/Dashboard.vue';
 import Home from './components/Home.vue';
 import Register from './components/Register.vue';
 import Login from './components/Login.vue';
-import auth from './components/auth.js';
-import VueAuth from '@websanova/vue-auth';
 
 
 window.vue = require('vue')
@@ -22,42 +20,28 @@ const router = new VueRouter({
     routes: [{
         path: '/',
         name: 'home',
-        component: Home,
-        meta: {
-            auth: undefined
-        }
+        component: Home
     },
     {
         path: '/register',
         name: 'register',
-        component: Register,
-        meta: {
-            auth: false
-        }
+        component: Register
     },
     {
         path: '/login',
         name: 'login',
-        component: Login,
-        meta: {
-            auth: false
-        }
+        component: Login
     },
     {
         path: '/dashboard',
         name: 'dashboard',
-        component: Dashboard,
-        meta: {
-            auth: true
-        }
+        component: Dashboard
     }],
     mode: 'history'
 });
 
 Vue.router = router
 App.router = Vue.router;
-
-Vue.use(VueAuth, auth);
 
 const app = new Vue({
     el: '#app',

@@ -17,17 +17,23 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::prefix('auth')->group(function () {
+Route::post('login', 'ApiController@login');
+Route::post('register', 'ApiController@register');
 
-  Route::post('register', 'AuthController@register');
-  Route::post('login', 'AuthController@login');
-  Route::get('refresh', 'AuthController@refresh');
+Route::group(['middleware' => 'auth.jwt'], function () {
+    Route::get('logout', 'ApiController@logout');
 
-  Route::group(['middleware' => 'auth:api'], function(){
-      Route::get('user', 'AuthController@user');
-      Route::post('logout', 'AuthController@logout');
-  });
-  
+    //List single pun
+    Route::get('pun/{id}', 'PunController@show');
+
+    //Create pun
+    Route::post('pun/create', 'PunController@store');
+
+    //Update pun
+    Route::put('pun/{id}', 'PunController@store');
+
+    //Delete pun
+    Route::delete('pun/{id}', 'PunController@destroy');
 });
 
 //List popular puns
@@ -35,15 +41,3 @@ Route::get('popular', 'PunController@popular');
 
 //List recent puns
 Route::get('recent', 'PunController@recent');
-
-//List single pun
-Route::get('pun/{id}', 'PunController@show');
-
-//Create pun
-Route::post('pun/create', 'PunController@store');
-
-//Update pun
-Route::put('pun/{id}', 'PunController@store');
-
-//Delete pun
-Route::delete('pun/{id}', 'PunController@destroy');
