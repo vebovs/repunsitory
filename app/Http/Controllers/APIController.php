@@ -7,6 +7,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Requests\RegistrationFormRequest;
+use Illuminate\Support\Facades\Auth;
+
 class APIController extends Controller
 {
     /**
@@ -33,6 +35,7 @@ public function login(Request $request)
         return response()->json([
             'success' => true,
             'token' => $token,
+            'username' => User::find(Auth::user()->id)
         ]);
     }
 
