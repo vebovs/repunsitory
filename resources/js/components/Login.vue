@@ -6,7 +6,7 @@
         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
         class="profile-img-card"
       />
-      <form name="form" @submit.prevent="handleLogin">
+      <form name="form" @submit.prevent="login">
         <div class="form-group">
           <label for="username">Username</label>
           <input
@@ -95,6 +95,22 @@ export default {
           );
         }
       });
+    },
+    login() {
+      this.$axios.post('http://localhost:8000/api/login', {
+        email: 'test@test.com',
+        password: 'passord'
+      },
+      {
+        withCredentials: true
+      })
+      .then(res => {
+        console.log(res);
+        console.log(res.headers);
+      })
+      .catch(err => {
+        console.log(err);
+      })
     }
   }
 };

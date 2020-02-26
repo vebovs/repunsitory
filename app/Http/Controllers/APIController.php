@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use JWTAuth;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Requests\RegistrationFormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,8 @@ class APIController extends Controller
      */
 public function login(Request $request)
     {
+        $cookie = $request->cookie('token');
+
         $input = $request->only('email', 'password');
         $token = null;
 
@@ -34,9 +37,10 @@ public function login(Request $request)
 
         return response()->json([
             'success' => true,
-            'token' => $token,
-            'username' => User::find(Auth::user()->id)
-        ]);
+            'accessToken' => $token,
+            'username' => User::find(Auth::user()->id),
+            'kjeks' => $cookie
+        ])->cookie('token', $token);
     }
 
     /**
@@ -47,7 +51,7 @@ public function login(Request $request)
     public function logout(Request $request)
     {
         $this->validate($request, [
-            'token' => 'required'
+            'accessToken' => 'required'
         ]);
 
         try {

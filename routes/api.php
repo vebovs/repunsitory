@@ -17,11 +17,20 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
+//List popular puns
+Route::get('popular', 'PublicPunController@popular');
+
+//List recent puns
+Route::get('recent', 'PublicPunController@recent');
+
+// Auth
 Route::post('login', 'ApiController@login');
 Route::post('register', 'ApiController@register');
 
 Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('logout', 'ApiController@logout');
+
+    Route::get('puns', 'PunController@index');
 
     //List single pun
     Route::get('pun/{id}', 'PunController@show');
@@ -36,8 +45,3 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::delete('pun/{id}', 'PunController@destroy');
 });
 
-//List popular puns
-Route::get('popular', 'PunController@popular');
-
-//List recent puns
-Route::get('recent', 'PunController@recent');

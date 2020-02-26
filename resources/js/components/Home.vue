@@ -37,3 +37,11 @@ export default {
     
 }
 </script>
+
+<style scoped>
+
+#recent {
+    border-left: 1px solid #595959;
+}
+
+</style>

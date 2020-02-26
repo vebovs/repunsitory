@@ -8,11 +8,11 @@ import router from './router.js';
 import store from './store';
 import App from './components/App.vue';
 
-
 window.vue = require('vue')
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
+Vue.prototype.$axios = axios;
 
 Vue.use(VeeValidate);
 

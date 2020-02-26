@@ -10,16 +10,16 @@ class AuthService {
         password: user.password
       })
       .then(response => {
-        if (response.data.token) {
-          localStorage.setItem('user-token', JSON.stringify(response.data.token));
+        if (response.data.accessToken) {
+          localStorage.setItem('user-token', JSON.stringify(response.data.accessToken));
+          
         }
-        console.log(response.data);
         return response.data;
       });
   }
 
   logout() {
-    localStorage.removeItem('user');
+    localStorage.removeItem('user-token');
   }
 
   register(user) {
