@@ -2,7 +2,7 @@
     <div>
         <nav class="navbar navbar-dark bg-dark mb-2">
             <router-link class="navbar-brand" :to="{ name : 'home' }">Repunsitory</router-link>
-            <div v-if="!currentUser">
+            <div v-if="!status">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <router-link class="nav-link" :to="{ name : 'login' }">Login</router-link>
@@ -12,10 +12,13 @@
                     </li>
                 </ul>
             </div>
-            <div v-if="currentUser">
+            <div v-if="status">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href @click.prevent="logOut">LogOut</a>
+                        <router-link class="nav-link" :to="{ name : 'dashboard' }">{{ username }}</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" v-on:click.native="logout" :to="{ name : 'home' }">Logout</router-link>
                     </li>
                 </ul>
             </div>
@@ -27,29 +30,26 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
+    data() {
+        return {
+            
+        }
+    },
+
     computed: {
-    currentUser() {
-      return this.$store.state.auth.user;
+        ...mapState([
+            'status',
+            'username'
+        ])
     },
-    showAdminBoard() {
-      if (this.currentUser && this.currentUser.roles) {
-        return this.currentUser.roles.includes('ROLE_ADMIN');
-      }
-      return false;
-    },
-    showModeratorBoard() {
-      if (this.currentUser && this.currentUser.roles) {
-        return this.currentUser.roles.includes('ROLE_MODERATOR');
-      }
-      return false;
+
+    methods: {
+        logout() {
+            this.$store.dispatch('logout');
+        } 
     }
-  },
-  methods: {
-    logOut() {
-      this.$store.dispatch('auth/logout');
-      this.$router.push({ name: 'home' });
-    }
-  }
 }
 </script>

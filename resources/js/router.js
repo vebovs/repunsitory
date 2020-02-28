@@ -1,4 +1,5 @@
 import VueRouter from 'vue-router';
+import store from './store';
 
 import Dashboard from './components/user/Dashboard.vue';
 import Home from './components/Home.vue';
@@ -24,7 +25,14 @@ const router = new VueRouter({
     {
         path: '/dashboard',
         name: 'dashboard',
-        component: Dashboard
+        component: Dashboard,
+        beforeEnter: (to, from, next) => {
+            if(store.state.token && store.state.role === 1) {
+                next();
+            } else {
+                next('/');
+            }
+        }
     }],
     mode: 'history',
     history: true

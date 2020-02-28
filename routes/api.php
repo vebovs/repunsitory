@@ -30,6 +30,7 @@ Route::post('register', 'ApiController@register');
 Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('logout', 'ApiController@logout');
 
+    //List all puns
     Route::get('puns', 'PunController@index');
 
     //List single pun

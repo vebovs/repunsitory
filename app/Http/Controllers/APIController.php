@@ -9,13 +9,14 @@ use Illuminate\Http\Response;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Requests\RegistrationFormRequest;
 use Illuminate\Support\Facades\Auth;
+use Cookie;
 
 class APIController extends Controller
 {
     /**
      * @var bool
      */
-    public $loginAfterSignUp = true;
+    public $loginAfterSignUp = false;
 
     /**
      * @param Request $request
@@ -23,8 +24,6 @@ class APIController extends Controller
      */
 public function login(Request $request)
     {
-        $cookie = $request->cookie('token');
-
         $input = $request->only('email', 'password');
         $token = null;
 
@@ -35,11 +34,13 @@ public function login(Request $request)
             ], 401);
         }
 
+        $user = User::find(Auth::user()->id);
+
         return response()->json([
             'success' => true,
-            'accessToken' => $token,
-            'username' => User::find(Auth::user()->id),
-            'kjeks' => $cookie
+            'token' => $token,
+            'username' => $user->username,
+            'role' => $user->role
         ])->cookie('token', $token);
     }
 
@@ -50,12 +51,14 @@ public function login(Request $request)
      */
     public function logout(Request $request)
     {
-        $this->validate($request, [
-            'accessToken' => 'required'
-        ]);
+        //$this->validate($request->cookie('token'), [
+            //'token' => 'required'
+        //]);
 
         try {
-            JWTAuth::invalidate($request->token);
+            JWTAuth::invalidate($request->cookie('token'));
+
+            Cookie::queue(Cookie::forget('token'));
 
             return response()->json([
                 'success' => true,
@@ -86,8 +89,7 @@ public function login(Request $request)
         }
 
         return response()->json([
-            'success'   =>  true,
-            'data'      =>  $user
+            'success'   =>  true
         ], 200);
     }
 }

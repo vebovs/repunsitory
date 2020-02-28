@@ -1,34 +1,38 @@
-import axios from 'axios';
+import axios from 'axios'
 
 const API_URL = 'http://localhost:8000/api/';
 
-class AuthService {
-  login(user) {
-    return axios
-      .post(API_URL + 'login', {
-        email: user.username,
-        password: user.password
-      })
-      .then(response => {
-        if (response.data.accessToken) {
-          localStorage.setItem('user-token', JSON.stringify(response.data.accessToken));
-          
-        }
-        return response.data;
-      });
-  }
+class Auth {
+    async LOGIN(email, password) {
+        return await axios.post(API_URL + 'login', {
+            email: email,
+            password: password
+        },
+        {
+            withCredentials: true
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
 
-  logout() {
-    localStorage.removeItem('user-token');
-  }
+    async REGISTER(username, email, password) {
+        return await axios.post(API_URL + 'register', {
+            username: username,
+            email: email,
+            password: password
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
 
-  register(user) {
-    return axios.post(API_URL + 'register', {
-      username: user.username,
-      email: user.email,
-      password: user.password
-    });
-  }
+    async LOGOUT() {
+        return await axios.get(API_URL + 'logout', {
+            withCredentials: true
+        })
+        .catch(err => console.log(err));
+    }
 }
 
-export default new AuthService();
+export default new Auth();
