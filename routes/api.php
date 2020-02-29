@@ -37,7 +37,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('pun/{id}', 'PunController@show');
 
     //Create pun
-    Route::post('pun/create', 'PunController@store');
+    Route::post('pun', 'PunController@store');
 
     //Update pun
     Route::put('pun/{id}', 'PunController@store');

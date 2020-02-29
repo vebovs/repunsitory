@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <form class="m-4" @submit.prevent="login">
+  <div class="container">
+    <form class="m-4" @submit.prevent="login" method="post">
             <div class="form-group">
                     <label for="email">E-mail</label>
                     <input v-model="email" type="email" class="form-control">
@@ -29,6 +29,9 @@ export default {
         this.$store.dispatch('login', {
           email: this.email,
           password: this.password
+        })
+        .then(() => {
+          this.$store.dispatch('show');
         })
         .then(() => {
           this.$router.push({ name: 'dashboard' });

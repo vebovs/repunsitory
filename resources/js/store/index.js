@@ -1,6 +1,7 @@
 import Vuex from 'vuex';
 import Vue from 'vue';
 import AuthService from '../services/auth.service.js';
+import UserService from '../services/user.service.js';
 
 Vue.use(Vuex);
 
@@ -9,7 +10,8 @@ export default new Vuex.Store({
     status: false,
     username: '',
     token: '',
-    role: ''
+    role: '',
+    puns: []
   },
 
   actions: {
@@ -45,7 +47,29 @@ export default new Vuex.Store({
       })
       .catch(err => {
         commit('reset')
-        return Promise.reject();
+        return Promise.reject(err);
+      });
+    },
+
+    async create({ commit }, data) {
+      return await UserService.CREATE(data.title, data.body)
+      .then(response => {
+        commit('update', response.data);
+        return Promise.resolve();
+      })
+      .catch(err => {
+        return Promise.reject(err);
+      });
+    },
+
+    async show({ commit }) {
+      return await UserService.SHOW()
+      .then(response => {
+        commit('puns', response.data);
+        return Promise.resolve();
+      })
+      .catch(err => {
+        return Promise.reject(err);
       });
     }
   },
@@ -56,7 +80,6 @@ export default new Vuex.Store({
         state.username = data.username;
         state.token = data.token;
         state.role = data.role;
-        console.log(state);
     },
 
     reset: (state) => {
@@ -64,7 +87,18 @@ export default new Vuex.Store({
         state.username = '';
         state.token = '';
         state.role = '';
-        console.log(state);
+    },
+
+    puns: (state, data) => {
+      state.puns = data;
+    },
+
+    update: (state, data) => {
+      state.puns.push({
+        id: data.pun.id,
+        title: data.pun.title,
+        body: data.pun.body
+      })
     }
   }
 });

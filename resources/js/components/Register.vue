@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <form class="m-4" @submit.prevent="register" method="post">
         <div class="form-group">
             <label for="username">Username</label>

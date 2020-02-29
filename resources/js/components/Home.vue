@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <div class="text-center">
             <div class="btn-group btn-group-lg mt-2" role="group" aria-label="Basic example">
                 <button id="popular" v-on:click="display" type="button" class="btn btn-secondary">Popular puns</button>
