@@ -27,11 +27,11 @@ const router = new VueRouter({
         name: 'dashboard',
         component: Dashboard,
         beforeEnter: (to, from, next) => {
-            //if(store.state.token && store.state.role === 1) {
-                //next();
-            //} else {
-                //next('/');
-            //}
+            if(store.state.token && store.state.role === 1) {
+                next();
+            } else {
+                next('/');
+            }
             next();
         }
     }],

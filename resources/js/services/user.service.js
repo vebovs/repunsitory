@@ -21,6 +21,24 @@ class User {
           })
           .catch(err => console.log(err));
     }
+
+    async REMOVE(id) {
+      return await axios.delete(API_URL + 'pun/' + `${id}`, {
+        withCredentials: true
+      })
+      .catch(err => console.log(err));
+    }
+
+    async UPDATE(id, title, body) {
+      return await axios.put(API_URL + 'pun/' + `${id}`, {
+        title: title,
+        body: body
+      },
+      {
+        withCredentials: true
+      })
+      .catch(err => console.log(err));
+    }
 }
 
 export default new User();

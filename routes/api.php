@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::post('pun', 'PunController@store');
 
     //Update pun
-    Route::put('pun/{id}', 'PunController@store');
+    Route::put('pun/{id}', 'PunController@update');
 
     //Delete pun
     Route::delete('pun/{id}', 'PunController@destroy');

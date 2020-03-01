@@ -123,7 +123,8 @@ class PunController extends Controller
     
         if ($updated) {
             return response()->json([
-                'success' => true
+                'success' => true,
+                'pun' => $pun
             ]);
         } else {
             return response()->json([
@@ -152,7 +153,8 @@ class PunController extends Controller
 
         if ($pun->delete()) {
             return response()->json([
-                'success' => true
+                'success' => true,
+                'id' => $id
             ]);
         } else {
             return response()->json([

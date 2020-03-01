@@ -21,9 +21,42 @@
     </div>
     <div v-if="!state">
       <div class="card card-body m-4" v-for="pun in puns" v-bind:key="pun.id">
-            <h3>{{ pun.title }}</h3>
-            <p>{{ pun.body }}</p>
+        <h3>{{ pun.title }}</h3>
+        <p>{{ pun.body }}</p>
+        <div class="text-right">
+          <button v-on:click="display(pun.id)" data-toggle="modal" data-target="#Modal" type="button" class="btn btn-primary">Edit</button>
+          <button v-on:click="remove(pun.id)" type="button" class="btn btn-primary btn-danger">Delete</button>
         </div>
+
+          <!-- Modal -->
+          <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Edit</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                      <label for="title">Title</label>
+                      <input v-model="edit.title" type="text" class="form-control">
+                  </div>
+                  <div>
+                      <label for="body">Body</label>
+                      <textarea v-model="edit.body" class="form-control" rows="8"></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button v-on:click="update(edit.id)" data-dismiss="modal" type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      </div>
     </div>
   </div>
 </template>
@@ -36,7 +69,12 @@ export default {
     return {
       title: '',
       body: '',
-      state: false
+      state: false,
+      edit: {
+        id: '',
+        title: '',
+        body: ''
+      }
     }
   },
 
@@ -57,6 +95,24 @@ export default {
           this.state = false;
         });
       }
+    },
+
+    display(id) {
+      this.edit = this.puns.find(e => e.id === id);
+    },
+
+    update(id) {
+      this.$store.dispatch('update', {
+        id: id,
+        title: this.edit.title,
+        body: this.edit.body
+      });
+    },
+
+    remove(id) {
+      this.$store.dispatch('remove', {
+        id: id
+      });
     }
   }
 };

@@ -54,7 +54,7 @@ export default new Vuex.Store({
     async create({ commit }, data) {
       return await UserService.CREATE(data.title, data.body)
       .then(response => {
-        commit('update', response.data);
+        commit('create', response.data);
         return Promise.resolve();
       })
       .catch(err => {
@@ -71,8 +71,30 @@ export default new Vuex.Store({
       .catch(err => {
         return Promise.reject(err);
       });
-    }
+    },
+
+  async remove({ commit }, data) {
+    return await UserService.REMOVE(data.id)
+    .then(response => {
+      commit('remove', response.data);
+      return Promise.resolve();
+    })
+    .catch(err => {
+      return Promise.reject(err);
+    });
   },
+
+  async update({ commit }, data) {
+    return await UserService.UPDATE(data.id, data.title, data.body)
+    .then(response => {
+      commit('update', response.data);
+      return Promise.resolve();
+    })
+    .catch(err => {
+      return Promise.reject(err);
+    });
+  }
+},
 
   mutations: {
     set: (state, data) => {
@@ -93,12 +115,25 @@ export default new Vuex.Store({
       state.puns = data;
     },
 
-    update: (state, data) => {
+    create: (state, data) => {
       state.puns.push({
         id: data.pun.id,
         title: data.pun.title,
         body: data.pun.body
       })
+    },
+
+    remove: (state, data) => {
+      state.puns = state.puns.filter(e => e.id != data.id);
+    },
+
+    update: (state, data) => {
+      state.puns.find(e => {
+        if(e.id === data.pun.id) {
+          e.title = data.pun.title;
+          e.body = data.pun.body;
+        } 
+      });
     }
   }
 });

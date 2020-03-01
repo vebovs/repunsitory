@@ -2267,13 +2267,51 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       title: '',
       body: '',
-      state: false
+      state: false,
+      edit: {
+        id: '',
+        title: '',
+        body: ''
+      }
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['puns'])),
@@ -2289,6 +2327,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this.state = false;
         });
       }
+    },
+    display: function display(id) {
+      this.edit = this.puns.find(function (e) {
+        return e.id === id;
+      });
+    },
+    update: function update(id) {
+      this.$store.dispatch('update', {
+        id: id,
+        title: this.edit.title,
+        body: this.edit.body
+      });
+    },
+    remove: function remove(id) {
+      this.$store.dispatch('remove', {
+        id: id
+      });
     }
   }
 });
@@ -4869,7 +4924,166 @@ var render = function() {
               [
                 _c("h3", [_vm._v(_vm._s(pun.title))]),
                 _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(pun.body))])
+                _c("p", [_vm._v(_vm._s(pun.body))]),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-right" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: {
+                        "data-toggle": "modal",
+                        "data-target": "#Modal",
+                        type: "button"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.display(pun.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary btn-danger",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.remove(pun.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Delete")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "modal fade",
+                    attrs: {
+                      id: "Modal",
+                      tabindex: "-1",
+                      role: "dialog",
+                      "aria-labelledby": "exampleModalLongTitle",
+                      "aria-hidden": "true"
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "modal-dialog",
+                        attrs: { role: "document" }
+                      },
+                      [
+                        _c("div", { staticClass: "modal-content" }, [
+                          _vm._m(0, true),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "modal-body" }, [
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", { attrs: { for: "title" } }, [
+                                _vm._v("Title")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.edit.title,
+                                    expression: "edit.title"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { type: "text" },
+                                domProps: { value: _vm.edit.title },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.edit,
+                                      "title",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("div", [
+                              _c("label", { attrs: { for: "body" } }, [
+                                _vm._v("Body")
+                              ]),
+                              _vm._v(" "),
+                              _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.edit.body,
+                                    expression: "edit.body"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { rows: "8" },
+                                domProps: { value: _vm.edit.body },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.edit,
+                                      "body",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "modal-footer" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-secondary",
+                                attrs: {
+                                  type: "button",
+                                  "data-dismiss": "modal"
+                                }
+                              },
+                              [_vm._v("Close")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                attrs: {
+                                  "data-dismiss": "modal",
+                                  type: "button"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.update(_vm.edit.id)
+                                  }
+                                }
+                              },
+                              [_vm._v("Save changes")]
+                            )
+                          ])
+                        ])
+                      ]
+                    )
+                  ]
+                )
               ]
             )
           }),
@@ -4878,7 +5092,33 @@ var render = function() {
       : _vm._e()
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLongTitle" } },
+        [_vm._v("Edit")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -21515,11 +21755,12 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
     name: 'dashboard',
     component: _components_user_Dashboard_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     beforeEnter: function beforeEnter(to, from, next) {
-      //if(store.state.token && store.state.role === 1) {
-      //next();
-      //} else {
-      //next('/');
-      //}
+      if (_store__WEBPACK_IMPORTED_MODULE_1__["default"].state.token && _store__WEBPACK_IMPORTED_MODULE_1__["default"].state.role === 1) {
+        next();
+      } else {
+        next('/');
+      }
+
       next();
     }
   }],
@@ -21789,6 +22030,77 @@ function () {
 
       return SHOW;
     }()
+  }, {
+    key: "REMOVE",
+    value: function () {
+      var _REMOVE = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"](API_URL + 'pun/' + "".concat(id), {
+                  withCredentials: true
+                })["catch"](function (err) {
+                  return console.log(err);
+                });
+
+              case 2:
+                return _context3.abrupt("return", _context3.sent);
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      function REMOVE(_x3) {
+        return _REMOVE.apply(this, arguments);
+      }
+
+      return REMOVE;
+    }()
+  }, {
+    key: "UPDATE",
+    value: function () {
+      var _UPDATE = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(id, title, body) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(API_URL + 'pun/' + "".concat(id), {
+                  title: title,
+                  body: body
+                }, {
+                  withCredentials: true
+                })["catch"](function (err) {
+                  return console.log(err);
+                });
+
+              case 2:
+                return _context4.abrupt("return", _context4.sent);
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }));
+
+      function UPDATE(_x4, _x5, _x6) {
+        return _UPDATE.apply(this, arguments);
+      }
+
+      return UPDATE;
+    }()
   }]);
 
   return User;
@@ -21932,7 +22244,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
               case 0:
                 _context4.next = 2;
                 return _services_user_service_js__WEBPACK_IMPORTED_MODULE_4__["default"].CREATE(data.title, data.body).then(function (response) {
-                  commit('update', response.data);
+                  commit('create', response.data);
                   return Promise.resolve();
                 })["catch"](function (err) {
                   return Promise.reject(err);
@@ -21976,6 +22288,62 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
           }
         }, _callee5);
       }))();
+    },
+    remove: function remove(_ref6, data) {
+      var commit = _ref6.commit;
+      return _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return _services_user_service_js__WEBPACK_IMPORTED_MODULE_4__["default"].REMOVE(data.id).then(function (response) {
+                  commit('remove', response.data);
+                  return Promise.resolve();
+                })["catch"](function (err) {
+                  return Promise.reject(err);
+                });
+
+              case 2:
+                return _context6.abrupt("return", _context6.sent);
+
+              case 3:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }))();
+    },
+    update: function update(_ref7, data) {
+      var commit = _ref7.commit;
+      return _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                _context7.next = 2;
+                return _services_user_service_js__WEBPACK_IMPORTED_MODULE_4__["default"].UPDATE(data.id, data.title, data.body).then(function (response) {
+                  commit('update', response.data);
+                  return Promise.resolve();
+                })["catch"](function (err) {
+                  return Promise.reject(err);
+                });
+
+              case 2:
+                return _context7.abrupt("return", _context7.sent);
+
+              case 3:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
+      }))();
     }
   },
   mutations: {
@@ -21994,11 +22362,24 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     puns: function puns(state, data) {
       state.puns = data;
     },
-    update: function update(state, data) {
+    create: function create(state, data) {
       state.puns.push({
         id: data.pun.id,
         title: data.pun.title,
         body: data.pun.body
+      });
+    },
+    remove: function remove(state, data) {
+      state.puns = state.puns.filter(function (e) {
+        return e.id != data.id;
+      });
+    },
+    update: function update(state, data) {
+      state.puns.find(function (e) {
+        if (e.id === data.pun.id) {
+          e.title = data.pun.title;
+          e.body = data.pun.body;
+        }
       });
     }
   }
