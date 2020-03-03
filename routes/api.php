@@ -13,10 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
 //List popular puns
 Route::get('popular', 'PublicPunController@popular');
 
@@ -44,5 +40,8 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
     //Delete pun
     Route::delete('pun/{id}', 'PunController@destroy');
+
+    //Like pun
+    Route::get('pun/like/{id}', 'PunController@like');
 });
 

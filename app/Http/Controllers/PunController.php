@@ -6,6 +6,7 @@ use JWTAuth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Pun;
+use App\Like;
 use App\Http\Resources\Pun as PunResource;
 
 class PunController extends Controller
@@ -25,7 +26,7 @@ class PunController extends Controller
     }
 
     public function index() {
-        $puns = $this->user->puns()->get(['id', 'title', 'body'])->toArray();
+        $puns = $this->user->puns()->get(['id', 'title', 'body', 'likes'])->toArray();
 
         return $puns;
     }
@@ -162,5 +163,36 @@ class PunController extends Controller
                 'message' => 'Pun could not be deleted.'
             ], 500);
         }
+    }
+
+    public function like($id) {
+        $like = $this->user->likes()->where('pun_id', $id);
+
+        if($like->count()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Already liked'
+            ], 400);
+        }
+
+        $pun = Pun::find($id);
+        $updated = $pun->increment('likes');
+
+        $like = new Like();
+        $like->pun_id = $id;
+        $this->user->likes()->save($like);
+
+        if ($updated) {
+            return response()->json([
+                'success' => true,
+                'pun' => $pun
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, pun could not be updated.'
+            ], 500);
+        }
+
     }
 }

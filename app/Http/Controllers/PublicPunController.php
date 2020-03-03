@@ -16,10 +16,7 @@ class PublicPunController extends Controller
      */
     public function popular()
     {
-        //Get puns
-        $puns = Pun::select()->paginate(10);
-
-        //Return collection of puns as a resource
+        $puns = Pun::orderBy('likes', 'desc')->paginate(10);
         return PunResource::collection($puns);
     }
 

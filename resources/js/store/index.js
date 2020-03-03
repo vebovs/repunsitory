@@ -2,6 +2,7 @@ import Vuex from 'vuex';
 import Vue from 'vue';
 import AuthService from '../services/auth.service.js';
 import UserService from '../services/user.service.js';
+import PublicService from '../services/public.service.js';
 
 Vue.use(Vuex);
 
@@ -11,7 +12,9 @@ export default new Vuex.Store({
     username: '',
     token: '',
     role: '',
-    puns: []
+    puns: [],
+    home: [],
+    pagination: {}
   },
 
   actions: {
@@ -93,7 +96,29 @@ export default new Vuex.Store({
     .catch(err => {
       return Promise.reject(err);
     });
-  }
+  },
+
+  async like({ commit }, data) {
+    return await UserService.LIKE(data.id)
+    .then(response => {
+      commit('likes', response.data);
+      return Promise.resolve();
+    })
+    .catch(err => {
+      return Promise.reject(err);
+    });
+  },
+
+  async home({ commit }, data) {
+    return await PublicService.HOME(data.page_url)
+    .then(response => {
+      commit('public', response.data);
+      return Promise.resolve();
+    })
+    .catch(err => {
+      return Promise.reject(err);
+    });
+  } 
 },
 
   mutations: {
@@ -133,6 +158,24 @@ export default new Vuex.Store({
           e.title = data.pun.title;
           e.body = data.pun.body;
         } 
+      });
+    },
+
+    public: (state, data) => {
+      state.home = data.data;
+      state.pagination = {
+        current_page: data.meta.current_page,
+        last_page: data.meta.last_page,
+        next_page_url: data.links.next,
+        prev_page_url: data.links.prev
+      };
+    },
+
+    likes: (state, data) => {
+      state.home.find(e => {
+        if(e.id === data.pun.id) {
+          e.likes = data.pun.likes;
+        }
       });
     }
   }

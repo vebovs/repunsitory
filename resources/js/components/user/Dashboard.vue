@@ -2,7 +2,7 @@
   <div class="container">
     <div class="text-center">
       <div class="btn-group btn-group-lg mt-2" role="group" aria-label="Basic example">
-        <button v-on:click="state = false" type="button" class="btn btn-secondary">Show</button>
+        <button v-on:click="state = false" type="button" class="btn btn-secondary">Overview</button>
         <button v-on:click="state = true" type="button" class="btn btn-secondary border-left">Create</button>
       </div>
     </div>
@@ -93,6 +93,8 @@ export default {
         })
         .then(() => {
           this.state = false;
+          this.title = '';
+          this.body = '';
         });
       }
     },

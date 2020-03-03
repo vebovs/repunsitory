@@ -51,19 +51,15 @@ public function login(Request $request)
      */
     public function logout(Request $request)
     {
-        //$this->validate($request->cookie('token'), [
-            //'token' => 'required'
-        //]);
-
         try {
             JWTAuth::invalidate($request->cookie('token'));
 
-            Cookie::queue(Cookie::forget('token'));
+            $cookie = Cookie::forget('token');
 
             return response()->json([
                 'success' => true,
                 'message' => 'User logged out successfully'
-            ]);
+            ])->cookie($cookie);
         } catch (JWTException $exception) {
             return response()->json([
                 'success' => false,

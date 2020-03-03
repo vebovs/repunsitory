@@ -17,10 +17,11 @@
                 </ul>
             </nav>
             </div>
-            <div class="card card-body mb-2" v-for="pun in puns" v-bind:key="pun.id">
+            <div class="card card-body mb-2" v-for="pun in home" v-bind:key="pun.id">
                 <h3>{{ pun.title }}</h3>
                 <p>{{ pun.body }}</p>
                 <div class="text-right">
+                    <p>Likes: {{ pun.likes }}</p>
                     <button v-on:click="like(pun.id)" type="button" class="btn btn-primary btn-success">Like</button>
                 </div>
             </div>
@@ -36,13 +37,11 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapState } from 'vuex';
 
 export default {
     data() {
         return {
-            puns: [],
-            pagination: {},
             title: 'Popular puns',
             toggle: true
         }
@@ -58,25 +57,31 @@ export default {
         this.index();
     },
 
+    computed: {
+        ...mapState([
+            'status',
+            'home',
+            'pagination'
+        ])
+    },
+
     methods: {
         index(page_url) {
             page_url = (this.toggle) ? page_url || '/api/popular' : page_url || '/api/recent';
             this.title = (this.toggle) ? 'Popular puns' : 'Recent puns'
-            axios.get(page_url)
-            .then(res => {
-                this.puns = res.data.data;
-                this.pagination = {
-                    current_page: res.data.meta.current_page,
-                    last_page: res.data.meta.last_page,
-                    next_page_url: res.data.links.next,
-                    prev_page_url: res.data.links.prev
-                };
-            })  
-            .catch(err => console.log(err));
+            this.$store.dispatch('home', {
+                page_url: page_url
+            });
         },
 
         like(id) {
-            console.log(id);
+            if(!this.status) {
+                alert('You need to be logged in for this action');
+            } else {
+                this.$store.dispatch('like', {
+                    id: id
+                });
+            }
         }
     }
     

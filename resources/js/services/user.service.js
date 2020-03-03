@@ -39,6 +39,13 @@ class User {
       })
       .catch(err => console.log(err));
     }
+
+    async LIKE(id) {
+      return await axios.get(API_URL + 'pun/like/' + `${id}`, {
+        withCredentials: true
+      })
+      .catch(err => console.log(err));
+    }
 }
 
 export default new User();

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePunsTable extends Migration
+class CreateLikesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreatePunsTable extends Migration
      */
     public function up()
     {
-        Schema::create('puns', function (Blueprint $table) {
+        Schema::create('likes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->string('title');
-            $table->text('body');
-            $table->integer('likes')->default(0);
+            $table->unsignedBigInteger('pun_id');
             $table->timestamps();
             $table->foreign('user_id')
                     ->references('id')
@@ -34,6 +32,6 @@ class CreatePunsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('puns');
+        Schema::dropIfExists('likes');
     }
 }
