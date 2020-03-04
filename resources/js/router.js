@@ -1,6 +1,7 @@
 import VueRouter from 'vue-router';
 import store from './store';
 
+import Admin from './components/admin/Dashboard.vue';
 import Dashboard from './components/user/Dashboard.vue';
 import Home from './components/Home.vue';
 import Register from './components/Register.vue';
@@ -34,6 +35,11 @@ const router = new VueRouter({
             }
             next();
         }
+    },
+    {
+        path: '/admin',
+        name: 'admin',
+        component: Admin
     }],
     mode: 'history',
     history: true

@@ -18,7 +18,7 @@ class PunController extends Controller
     protected $user;
 
     /**
-     * TaskController constructor.
+     * PunController constructor.
      */
     public function __construct(Request $request)
     {

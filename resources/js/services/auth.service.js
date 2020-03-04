@@ -22,6 +22,9 @@ class Auth {
             username: username,
             email: email,
             password: password
+        },
+        {
+            withCredentials: true
         })
         .catch(err => {
             console.log(err);

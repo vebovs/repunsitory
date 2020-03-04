@@ -34,7 +34,7 @@ export default {
           this.$store.dispatch('show');
         })
         .then(() => {
-          this.$router.push({ name: 'home' });
+          this.$router.push({ name: 'admin' });
         });
       }
     }

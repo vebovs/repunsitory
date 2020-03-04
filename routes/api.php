@@ -43,5 +43,14 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
     //Like pun
     Route::get('pun/like/{id}', 'PunController@like');
+
+    //Get all users
+    Route::get('admin/users', 'AdminController@index');
+
+    //Delete a user
+    Route::delete('admin/user/{id}', 'AdminController@destroyUser');
+
+    //Delete a pun
+    Route::delete('admin/pun/{id}', 'AdminController@destroyPun');
 });
 

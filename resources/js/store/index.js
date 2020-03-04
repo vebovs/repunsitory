@@ -3,6 +3,7 @@ import Vue from 'vue';
 import AuthService from '../services/auth.service.js';
 import UserService from '../services/user.service.js';
 import PublicService from '../services/public.service.js';
+import AdminService from '../services/admin.service.js';
 
 Vue.use(Vuex);
 
@@ -14,7 +15,8 @@ export default new Vuex.Store({
     role: '',
     puns: [],
     home: [],
-    pagination: {}
+    pagination: {},
+    users: []
   },
 
   actions: {
@@ -118,7 +120,40 @@ export default new Vuex.Store({
     .catch(err => {
       return Promise.reject(err);
     });
-  } 
+  },
+
+  async users({ commit }) {
+    return await AdminService.USERS()
+    .then(response => {
+      commit('admin', response.data);
+      return Promise.resolve();
+    })
+    .catch(err => {
+      return Promise.reject(err);
+    });
+  },
+
+  async delete_user({ commit }, data) {
+    return await AdminService.DELETE_USER(data.id)
+    .then(response => {
+      commit('remove_user', response.data);
+      return Promise.resolve();
+    })  
+    .catch(err => {
+      return Promise.reject(err);
+    });
+  },
+
+  async delete_pun({ commit }, data) {
+    return await AdminService.DELETE_PUN(data.id)
+    .then(response => {
+      commit('remove_pun', response.data);
+      return Promise.resolve();
+    })
+    .catch(err => {
+      Promise.reject(err);
+    });
+  }
 },
 
   mutations: {
@@ -177,6 +212,18 @@ export default new Vuex.Store({
           e.likes = data.pun.likes;
         }
       });
+    },
+
+    admin: (state, data) => {
+      state.users = data.users;
+    },
+
+    remove_user: (state, data) => {
+      state.users = state.users.filter(e => e.id != data.id);
+    },
+
+    remove_pun: (state, data) => {
+      state.home = state.home.filter(e => e.id != data.id);
     }
   }
 });

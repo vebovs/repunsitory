@@ -5,7 +5,9 @@ const API_URL = 'http://localhost:8000/api/';
 
 class Public {
     async HOME(page_url) {
-        return await axios.get(page_url)  
+        return await axios.get(page_url, {
+            withCredentials: true
+        })  
         .catch(err => console.log(err));
     }
 }
