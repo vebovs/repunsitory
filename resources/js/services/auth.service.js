@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '../store';
 
 //const API_URL = 'http://192.168.1.5:8000/api/';
 const API_URL = 'http://localhost:8000/api/';
@@ -27,7 +28,7 @@ class Auth {
             withCredentials: true
         })
         .catch(err => {
-            console.log(err);
+            store.commit('error', err.response.data.message);
         });
     }
 

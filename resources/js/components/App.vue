@@ -23,6 +23,12 @@
                 </ul>
             </div>
         </nav>
+        <div v-if="error" class="container alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{ error }}</strong>
+            <button v-on:click="clear_error()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         <div>
             <router-view></router-view>
         </div>
@@ -42,14 +48,19 @@ export default {
     computed: {
         ...mapState([
             'status',
-            'username'
+            'username',
+            'error'
         ])
     },
 
     methods: {
         logout() {
             this.$store.dispatch('logout');
-        } 
+        },
+        
+        clear_error() {
+            this.$store.commit('error', '');
+        }
     }
 }
 </script>

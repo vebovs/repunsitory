@@ -16,7 +16,8 @@ export default new Vuex.Store({
     puns: [],
     home: [],
     pagination: {},
-    users: []
+    users: [],
+    error: ''
   },
 
   actions: {
@@ -165,10 +166,10 @@ export default new Vuex.Store({
     },
 
     reset: (state) => {
-        state.status = false;
-        state.username = '';
-        state.token = '';
-        state.role = '';
+      state.status = false;
+      state.username = '';
+      state.token = '';
+      state.role = '';
     },
 
     puns: (state, data) => {
@@ -224,6 +225,10 @@ export default new Vuex.Store({
 
     remove_pun: (state, data) => {
       state.home = state.home.filter(e => e.id != data.id);
+    },
+
+    error: (state, data) => {
+      state.error = data;
     }
   }
 });

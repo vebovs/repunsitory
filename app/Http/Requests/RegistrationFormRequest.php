@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 
 class RegistrationFormRequest extends FormRequest
 {
@@ -26,7 +27,16 @@ class RegistrationFormRequest extends FormRequest
         return [
             'username' => 'required|string|unique:users',
             'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:6|max:10'
+            'password' => 'required|string|min:6'
+        ];
+    }
+
+    public function messages() {
+        return [
+            'username.required' => 'Username is required',
+            'email.required' => 'E-mail is required',
+            'password.required' => 'Password is required',
+            'password' => 'Password too short'
         ];
     }
 }
