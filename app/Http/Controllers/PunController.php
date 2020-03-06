@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use JWTAuth;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Pun;
 use App\Like;
 use App\Http\Resources\Pun as PunResource;

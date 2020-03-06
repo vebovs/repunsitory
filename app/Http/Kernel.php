@@ -63,13 +63,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
-        //'jwt.auth' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
-        //'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
-
-        //'isAdmin' => \App\Http\Middleware\CheckIsAdmin::class,
-        //'isAdminOrSelf' => \App\Http\Middleware\CheckIsAdminOrSelf::class,
-
-        'auth.jwt'  =>  \Tymon\JWTAuth\Http\Middleware\Authenticate::class // JWT middleware
+        'jwt.auth' => \Tymon\JWTAuth\Middleware\Authenticate::class,
     ];
 
     /**

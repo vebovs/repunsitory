@@ -84,6 +84,10 @@ export default {
         ])
     },
 
+  created() {
+    this.$store.dispatch('show');
+  },
+
   methods: {
     submit() {
       if(this.title && this.body) {

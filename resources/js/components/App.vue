@@ -53,6 +53,10 @@ export default {
         ])
     },
 
+    created() {
+        this.$store.dispatch('refresh');
+    },
+
     methods: {
         logout() {
             this.$store.dispatch('logout');

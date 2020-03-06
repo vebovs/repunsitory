@@ -27,8 +27,8 @@ import { mapState } from 'vuex';
 export default {
   data() {
     return {
-      email: 'karu@karu.com',
-      password: 'passord'
+      email: '',
+      password: ''
     };
   },
 
@@ -45,11 +45,6 @@ export default {
         this.$store.dispatch('login', {
           email: this.email,
           password: this.password
-        })
-        .then(() => {
-          if(!this.error) {
-            this.$store.dispatch('show');
-          }
         })
         .then(() => {
           if(!this.error) {

@@ -7,7 +7,6 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use App\Http\Requests\RegistrationFormRequest;
 use Illuminate\Support\Facades\Auth;
 use Cookie;
 use Validator;
@@ -23,7 +22,7 @@ class APIController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-public function login(Request $request)
+    public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -83,10 +82,6 @@ public function login(Request $request)
         }
     }
 
-    /**
-     * @param RegistrationFormRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function register(Request $request)
     {   
         
@@ -116,5 +111,22 @@ public function login(Request $request)
         return response()->json([
             'success'   =>  true
         ], 200);
+    }
+
+    public function refresh(Request $request) {
+        $user = JWTAuth::toUser($request->cookie('token'));
+
+        if(!$user) {
+            return response()->json([
+                'success' => false
+            ], 401);
+        }
+
+        return response()->json([
+            'success' => true,
+            'token' => $request->cookie('token'),
+            'username' => $user->username,
+            'role' => $user->role
+        ]);
     }
 }

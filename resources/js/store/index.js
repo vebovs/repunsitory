@@ -57,6 +57,17 @@ export default new Vuex.Store({
       });
     },
 
+    async refresh({ commit }) {
+      return await AuthService.REFRESH()
+      .then(response => {
+        commit('set', response.data)
+        return Promise.resolve();
+      })
+      .catch(err => {
+        return Promise.reject(err);
+      })
+    },
+
     async create({ commit }, data) {
       return await UserService.CREATE(data.title, data.body)
       .then(response => {
@@ -152,7 +163,7 @@ export default new Vuex.Store({
       return Promise.resolve();
     })
     .catch(err => {
-      Promise.reject(err);
+      return Promise.reject(err);
     });
   }
 },

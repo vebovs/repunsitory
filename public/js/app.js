@@ -1970,6 +1970,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {};
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['status', 'username', 'error'])),
+  created: function created() {
+    this.$store.dispatch('refresh');
+  },
   methods: {
     logout: function logout() {
       this.$store.dispatch('logout');
@@ -2118,8 +2121,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      email: 'karu@karu.com',
-      password: 'passord'
+      email: '',
+      password: ''
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['error'])),
@@ -2133,10 +2136,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.$store.dispatch('login', {
           email: this.email,
           password: this.password
-        }).then(function () {
-          if (!_this.error) {
-            _this.$store.dispatch('show');
-          }
         }).then(function () {
           if (!_this.error) {
             _this.$router.push({
@@ -2399,6 +2398,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['puns'])),
+  created: function created() {
+    this.$store.dispatch('show');
+  },
   methods: {
     submit: function submit() {
       var _this = this;
@@ -21694,6 +21696,40 @@ function () {
 
       return LOGOUT;
     }()
+  }, {
+    key: "REFRESH",
+    value: function () {
+      var _REFRESH = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(API_URL + 'refresh', {
+                  withCredentials: true
+                })["catch"](function (err) {
+                  Promise.reject(err);
+                });
+
+              case 2:
+                return _context4.abrupt("return", _context4.sent);
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }));
+
+      function REFRESH() {
+        return _REFRESH.apply(this, arguments);
+      }
+
+      return REFRESH;
+    }()
   }]);
 
   return Auth;
@@ -22136,7 +22172,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee3);
       }))();
     },
-    create: function create(_ref4, data) {
+    refresh: function refresh(_ref4) {
       var commit = _ref4.commit;
       return _asyncToGenerator(
       /*#__PURE__*/
@@ -22146,8 +22182,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return _services_user_service_js__WEBPACK_IMPORTED_MODULE_4__["default"].CREATE(data.title, data.body).then(function (response) {
-                  commit('create', response.data);
+                return _services_auth_service_js__WEBPACK_IMPORTED_MODULE_3__["default"].REFRESH().then(function (response) {
+                  commit('set', response.data);
                   return Promise.resolve();
                 })["catch"](function (err) {
                   return Promise.reject(err);
@@ -22164,7 +22200,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee4);
       }))();
     },
-    show: function show(_ref5) {
+    create: function create(_ref5, data) {
       var commit = _ref5.commit;
       return _asyncToGenerator(
       /*#__PURE__*/
@@ -22174,8 +22210,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return _services_user_service_js__WEBPACK_IMPORTED_MODULE_4__["default"].SHOW().then(function (response) {
-                  commit('puns', response.data);
+                return _services_user_service_js__WEBPACK_IMPORTED_MODULE_4__["default"].CREATE(data.title, data.body).then(function (response) {
+                  commit('create', response.data);
                   return Promise.resolve();
                 })["catch"](function (err) {
                   return Promise.reject(err);
@@ -22192,7 +22228,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee5);
       }))();
     },
-    remove: function remove(_ref6, data) {
+    show: function show(_ref6) {
       var commit = _ref6.commit;
       return _asyncToGenerator(
       /*#__PURE__*/
@@ -22202,8 +22238,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             switch (_context6.prev = _context6.next) {
               case 0:
                 _context6.next = 2;
-                return _services_user_service_js__WEBPACK_IMPORTED_MODULE_4__["default"].REMOVE(data.id).then(function (response) {
-                  commit('remove', response.data);
+                return _services_user_service_js__WEBPACK_IMPORTED_MODULE_4__["default"].SHOW().then(function (response) {
+                  commit('puns', response.data);
                   return Promise.resolve();
                 })["catch"](function (err) {
                   return Promise.reject(err);
@@ -22220,7 +22256,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee6);
       }))();
     },
-    update: function update(_ref7, data) {
+    remove: function remove(_ref7, data) {
       var commit = _ref7.commit;
       return _asyncToGenerator(
       /*#__PURE__*/
@@ -22230,8 +22266,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             switch (_context7.prev = _context7.next) {
               case 0:
                 _context7.next = 2;
-                return _services_user_service_js__WEBPACK_IMPORTED_MODULE_4__["default"].UPDATE(data.id, data.title, data.body).then(function (response) {
-                  commit('update', response.data);
+                return _services_user_service_js__WEBPACK_IMPORTED_MODULE_4__["default"].REMOVE(data.id).then(function (response) {
+                  commit('remove', response.data);
                   return Promise.resolve();
                 })["catch"](function (err) {
                   return Promise.reject(err);
@@ -22248,7 +22284,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee7);
       }))();
     },
-    like: function like(_ref8, data) {
+    update: function update(_ref8, data) {
       var commit = _ref8.commit;
       return _asyncToGenerator(
       /*#__PURE__*/
@@ -22258,8 +22294,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             switch (_context8.prev = _context8.next) {
               case 0:
                 _context8.next = 2;
-                return _services_user_service_js__WEBPACK_IMPORTED_MODULE_4__["default"].LIKE(data.id).then(function (response) {
-                  commit('likes', response.data);
+                return _services_user_service_js__WEBPACK_IMPORTED_MODULE_4__["default"].UPDATE(data.id, data.title, data.body).then(function (response) {
+                  commit('update', response.data);
                   return Promise.resolve();
                 })["catch"](function (err) {
                   return Promise.reject(err);
@@ -22276,7 +22312,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee8);
       }))();
     },
-    home: function home(_ref9, data) {
+    like: function like(_ref9, data) {
       var commit = _ref9.commit;
       return _asyncToGenerator(
       /*#__PURE__*/
@@ -22286,8 +22322,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             switch (_context9.prev = _context9.next) {
               case 0:
                 _context9.next = 2;
-                return _services_public_service_js__WEBPACK_IMPORTED_MODULE_5__["default"].HOME(data.page_url).then(function (response) {
-                  commit('public', response.data);
+                return _services_user_service_js__WEBPACK_IMPORTED_MODULE_4__["default"].LIKE(data.id).then(function (response) {
+                  commit('likes', response.data);
                   return Promise.resolve();
                 })["catch"](function (err) {
                   return Promise.reject(err);
@@ -22304,7 +22340,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee9);
       }))();
     },
-    users: function users(_ref10) {
+    home: function home(_ref10, data) {
       var commit = _ref10.commit;
       return _asyncToGenerator(
       /*#__PURE__*/
@@ -22314,8 +22350,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             switch (_context10.prev = _context10.next) {
               case 0:
                 _context10.next = 2;
-                return _services_admin_service_js__WEBPACK_IMPORTED_MODULE_6__["default"].USERS().then(function (response) {
-                  commit('admin', response.data);
+                return _services_public_service_js__WEBPACK_IMPORTED_MODULE_5__["default"].HOME(data.page_url).then(function (response) {
+                  commit('public', response.data);
                   return Promise.resolve();
                 })["catch"](function (err) {
                   return Promise.reject(err);
@@ -22332,7 +22368,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee10);
       }))();
     },
-    delete_user: function delete_user(_ref11, data) {
+    users: function users(_ref11) {
       var commit = _ref11.commit;
       return _asyncToGenerator(
       /*#__PURE__*/
@@ -22342,8 +22378,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             switch (_context11.prev = _context11.next) {
               case 0:
                 _context11.next = 2;
-                return _services_admin_service_js__WEBPACK_IMPORTED_MODULE_6__["default"].DELETE_USER(data.id).then(function (response) {
-                  commit('remove_user', response.data);
+                return _services_admin_service_js__WEBPACK_IMPORTED_MODULE_6__["default"].USERS().then(function (response) {
+                  commit('admin', response.data);
                   return Promise.resolve();
                 })["catch"](function (err) {
                   return Promise.reject(err);
@@ -22360,7 +22396,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee11);
       }))();
     },
-    delete_pun: function delete_pun(_ref12, data) {
+    delete_user: function delete_user(_ref12, data) {
       var commit = _ref12.commit;
       return _asyncToGenerator(
       /*#__PURE__*/
@@ -22370,11 +22406,11 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             switch (_context12.prev = _context12.next) {
               case 0:
                 _context12.next = 2;
-                return _services_admin_service_js__WEBPACK_IMPORTED_MODULE_6__["default"].DELETE_PUN(data.id).then(function (response) {
-                  commit('remove_pun', response.data);
+                return _services_admin_service_js__WEBPACK_IMPORTED_MODULE_6__["default"].DELETE_USER(data.id).then(function (response) {
+                  commit('remove_user', response.data);
                   return Promise.resolve();
                 })["catch"](function (err) {
-                  Promise.reject(err);
+                  return Promise.reject(err);
                 });
 
               case 2:
@@ -22386,6 +22422,34 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             }
           }
         }, _callee12);
+      }))();
+    },
+    delete_pun: function delete_pun(_ref13, data) {
+      var commit = _ref13.commit;
+      return _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee13() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee13$(_context13) {
+          while (1) {
+            switch (_context13.prev = _context13.next) {
+              case 0:
+                _context13.next = 2;
+                return _services_admin_service_js__WEBPACK_IMPORTED_MODULE_6__["default"].DELETE_PUN(data.id).then(function (response) {
+                  commit('remove_pun', response.data);
+                  return Promise.resolve();
+                })["catch"](function (err) {
+                  return Promise.reject(err);
+                });
+
+              case 2:
+                return _context13.abrupt("return", _context13.sent);
+
+              case 3:
+              case "end":
+                return _context13.stop();
+            }
+          }
+        }, _callee13);
       }))();
     }
   },

@@ -22,7 +22,7 @@ class AdminController extends Controller
     {
         $this->admin = JWTAuth::parseToken()->authenticate();
 
-        if($this->admin->role != 1) {
+        if($this->admin->role != 2) {
             $this->admin = null;
         }
     }

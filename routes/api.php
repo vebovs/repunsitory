@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use \Tymon\JWTAuth as JWTAuth;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ Route::get('recent', 'PublicPunController@recent');
 Route::post('login', 'ApiController@login');
 Route::post('register', 'ApiController@register');
 
-Route::group(['middleware' => 'auth.jwt'], function () {
+Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('logout', 'ApiController@logout');
 
     //List all puns
@@ -52,5 +53,8 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
     //Delete a pun
     Route::delete('admin/pun/{id}', 'AdminController@destroyPun');
+
+    //Fetch user data upon page refresh
+    Route::get('refresh', 'ApiController@refresh');
 });
 

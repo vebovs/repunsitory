@@ -38,6 +38,15 @@ class Auth {
         })
         .catch(err => console.log(err));
     }
+
+    async REFRESH() {
+        return await axios.get(API_URL + 'refresh', {
+            withCredentials: true
+        })
+        .catch(err => {
+            Promise.reject(err);
+        });
+    }
 }
 
 export default new Auth();
