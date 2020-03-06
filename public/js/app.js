@@ -2084,6 +2084,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2100,6 +2107,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2107,20 +2122,27 @@ __webpack_require__.r(__webpack_exports__);
       password: 'passord'
     };
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['error'])),
   methods: {
     login: function login() {
       var _this = this;
+
+      this.$store.commit('error', '');
 
       if (this.email && this.password) {
         this.$store.dispatch('login', {
           email: this.email,
           password: this.password
         }).then(function () {
-          _this.$store.dispatch('show');
+          if (!_this.error) {
+            _this.$store.dispatch('show');
+          }
         }).then(function () {
-          _this.$router.push({
-            name: 'admin'
-          });
+          if (!_this.error) {
+            _this.$router.push({
+              name: 'home'
+            });
+          }
         });
       }
     }
@@ -4028,78 +4050,88 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c(
-      "form",
-      {
-        staticClass: "m-4",
-        attrs: { method: "post" },
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.login($event)
-          }
-        }
-      },
-      [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "email" } }, [_vm._v("E-mail")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.email,
-                expression: "email"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "email" },
-            domProps: { value: _vm.email },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.email = $event.target.value
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "password" } }, [_vm._v("Password")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.password,
-                expression: "password"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "password" },
-            domProps: { value: _vm.password },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.password = $event.target.value
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-header" }, [
+        _vm._v("\n      Login\n    ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
         _c(
-          "button",
-          { staticClass: "btn btn-primary mt-2", attrs: { type: "submit" } },
-          [_vm._v("Login")]
+          "form",
+          {
+            attrs: { method: "post" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.login($event)
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "email" } }, [_vm._v("E-mail")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.email,
+                    expression: "email"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "email" },
+                domProps: { value: _vm.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.email = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "password" } }, [_vm._v("Password")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.password,
+                    expression: "password"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "password" },
+                domProps: { value: _vm.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.password = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary mt-2",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("Login")]
+            )
+          ]
         )
-      ]
-    )
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -21346,13 +21378,18 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
       } else {
         next('/');
       }
-
-      next();
     }
   }, {
     path: '/admin',
     name: 'admin',
-    component: _components_admin_Dashboard_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    component: _components_admin_Dashboard_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    beforeEnter: function beforeEnter(to, from, next) {
+      if (_store__WEBPACK_IMPORTED_MODULE_1__["default"].state.token && _store__WEBPACK_IMPORTED_MODULE_1__["default"].state.role === 2) {
+        next();
+      } else {
+        next('/');
+      }
+    }
   }],
   mode: 'history',
   history: true
@@ -21374,6 +21411,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -21385,6 +21423,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 
  //const API_URL = 'http://192.168.1.5:8000/api/';
 
@@ -21445,7 +21484,7 @@ function () {
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"](API_URL + 'admin/user/' + "".concat(id), {
                   withCredentials: true
                 })["catch"](function (err) {
-                  return console.log(err);
+                  _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
                 });
 
               case 2:
@@ -21479,7 +21518,7 @@ function () {
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"](API_URL + 'admin/pun/' + "".concat(id), {
                   withCredentials: true
                 })["catch"](function (err) {
-                  return console.log(err);
+                  _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
                 });
 
               case 2:
@@ -21563,7 +21602,7 @@ function () {
                 }, {
                   withCredentials: true
                 })["catch"](function (err) {
-                  console.log(err);
+                  _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
                 });
 
               case 2:
@@ -21756,6 +21795,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -21767,6 +21807,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 
  //const API_URL = 'http://192.168.1.5:8000/api/';
 
@@ -21796,7 +21837,7 @@ function () {
                 }, {
                   withCredentials: true
                 })["catch"](function (err) {
-                  return console.log(err);
+                  _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
                 });
 
               case 2:
@@ -21864,7 +21905,7 @@ function () {
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"](API_URL + 'pun/' + "".concat(id), {
                   withCredentials: true
                 })["catch"](function (err) {
-                  return console.log(err);
+                  _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
                 });
 
               case 2:
@@ -21901,7 +21942,7 @@ function () {
                 }, {
                   withCredentials: true
                 })["catch"](function (err) {
-                  return console.log(err);
+                  _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
                 });
 
               case 2:
@@ -21935,7 +21976,7 @@ function () {
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(API_URL + 'pun/like/' + "".concat(id), {
                   withCredentials: true
                 })["catch"](function (err) {
-                  return console.log(err);
+                  _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
                 });
 
               case 2:

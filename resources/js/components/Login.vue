@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <form class="m-4" @submit.prevent="login" method="post">
+    <div class="card">
+      <div class="card-header">
+        Login
+      </div>
+      <div class="card-body">
+        <form @submit.prevent="login" method="post">
             <div class="form-group">
                     <label for="email">E-mail</label>
                     <input v-model="email" type="email" class="form-control">
@@ -11,30 +16,45 @@
                 </div>
                 <button type="submit" class="btn btn-primary mt-2">Login</button>
         </form>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   data() {
     return {
-      email: '',
-      password: ''
+      email: 'karu@karu.com',
+      password: 'passord'
     };
   },
 
+  computed: {
+        ...mapState([
+            'error'
+        ])
+    },
+
   methods: {
     login() {
+      this.$store.commit('error', '');
       if(this.email && this.password) {
         this.$store.dispatch('login', {
           email: this.email,
           password: this.password
         })
         .then(() => {
-          this.$store.dispatch('show');
+          if(!this.error) {
+            this.$store.dispatch('show');
+          }
         })
         .then(() => {
-          this.$router.push({ name: 'admin' });
+          if(!this.error) {
+            this.$router.push({ name: 'home' });
+          }
         });
       }
     }

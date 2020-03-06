@@ -14,7 +14,7 @@ class Auth {
             withCredentials: true
         })
         .catch(err => {
-            console.log(err);
+            store.commit('error', err.response.data.message);
         });
     }
 

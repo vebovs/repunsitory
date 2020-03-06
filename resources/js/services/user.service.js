@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '../store';
 
 //const API_URL = 'http://192.168.1.5:8000/api/';
 const API_URL = 'http://localhost:8000/api/';
@@ -12,7 +13,9 @@ class User {
           {
             withCredentials: true
           })
-          .catch(err => console.log(err));
+          .catch(err => {
+            store.commit('error', err.response.data.message);
+          });
     }
 
     async SHOW() {
@@ -26,7 +29,9 @@ class User {
       return await axios.delete(API_URL + 'pun/' + `${id}`, {
         withCredentials: true
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        store.commit('error', err.response.data.message);
+      });
     }
 
     async UPDATE(id, title, body) {
@@ -37,14 +42,18 @@ class User {
       {
         withCredentials: true
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        store.commit('error', err.response.data.message);
+      });
     }
 
     async LIKE(id) {
       return await axios.get(API_URL + 'pun/like/' + `${id}`, {
         withCredentials: true
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        store.commit('error', err.response.data.message);
+      });
     }
 }
 

@@ -25,6 +25,19 @@ class APIController extends Controller
      */
 public function login(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|string'
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->all()
+            ], 400);
+        }
+        
+
         $input = $request->only('email', 'password');
         $token = null;
 
@@ -78,7 +91,7 @@ public function login(Request $request)
     {   
         
         $validator = Validator::make($request->all(), [
-            'username' => 'required|string|unique:users',
+            'username' => 'required|string|unique:users|min:3',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6'
         ]);

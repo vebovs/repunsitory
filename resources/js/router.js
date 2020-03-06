@@ -33,13 +33,19 @@ const router = new VueRouter({
             } else {
                 next('/');
             }
-            next();
         }
     },
     {
         path: '/admin',
         name: 'admin',
-        component: Admin
+        component: Admin,
+        beforeEnter: (to, from, next) => {
+            if(store.state.token && store.state.role === 2) {
+                next();
+            } else {
+                next('/');
+            }
+        }
     }],
     mode: 'history',
     history: true
