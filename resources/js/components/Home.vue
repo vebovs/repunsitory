@@ -61,7 +61,8 @@ export default {
         ...mapState([
             'status',
             'home',
-            'pagination'
+            'pagination',
+            'error'
         ])
     },
 

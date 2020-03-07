@@ -15,7 +15,8 @@
             <div v-if="status">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <router-link class="nav-link" :to="{ name : 'dashboard' }">{{ username }}</router-link>
+                        <router-link v-if="role === 1" class="nav-link" :to="{ name : 'dashboard' }">{{ username }}</router-link>
+                        <router-link v-if="role === 2" class="nav-link" :to="{ name : 'admin' }">{{ username }}</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link class="nav-link" v-on:click.native="logout" :to="{ name : 'home' }">Logout</router-link>
@@ -49,7 +50,8 @@ export default {
         ...mapState([
             'status',
             'username',
-            'error'
+            'error',
+            'role'
         ])
     },
 

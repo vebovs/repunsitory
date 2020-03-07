@@ -25,7 +25,7 @@ class PunController extends Controller
     }
 
     public function index() {
-        $puns = $this->user->puns()->get(['id', 'title', 'body', 'likes'])->toArray();
+        $puns = $this->user->puns()->orderBy('created_at', 'desc')->get(['id', 'title', 'body', 'likes'])->toArray();
 
         return $puns;
     }

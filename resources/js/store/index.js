@@ -188,7 +188,7 @@ export default new Vuex.Store({
     },
 
     create: (state, data) => {
-      state.puns.push({
+      state.puns.unshift({
         id: data.pun.id,
         title: data.pun.title,
         body: data.pun.body

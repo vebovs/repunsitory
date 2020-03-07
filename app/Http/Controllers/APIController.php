@@ -10,6 +10,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Auth;
 use Cookie;
 use Validator;
+use App\Banned;
 
 class APIController extends Controller
 {
@@ -97,6 +98,14 @@ class APIController extends Controller
                 'message' => $validator->errors()->all()
             ], 400);
         }
+
+        if(Banned::where('email', $request->email)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, this email has been blacklisted'
+            ], 400);
+        }
+
         
         $user = new User();
         $user->username = $request->username;

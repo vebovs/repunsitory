@@ -1,8 +1,7 @@
 import axios from 'axios'
 import store from '../store';
 
-//const API_URL = 'http://192.168.1.5:8000/api/';
-const API_URL = 'http://localhost:8000/api/';
+const API_URL = process.env.MIX_API_URL;
 
 class Admin {
     async USERS() {

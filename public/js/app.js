@@ -1964,12 +1964,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['status', 'username', 'error'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['status', 'username', 'error', 'role'])),
   created: function created() {
     this.$store.dispatch('refresh');
   },
@@ -2055,7 +2056,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     this.index();
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['status', 'home', 'pagination'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['status', 'home', 'pagination', 'error'])),
   methods: {
     index: function index(page_url) {
       page_url = this.toggle ? page_url || '/api/popular' : page_url || '/api/recent';
@@ -3714,14 +3715,27 @@ var render = function() {
                   "li",
                   { staticClass: "nav-item" },
                   [
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "nav-link",
-                        attrs: { to: { name: "dashboard" } }
-                      },
-                      [_vm._v(_vm._s(_vm.username))]
-                    )
+                    _vm.role === 1
+                      ? _c(
+                          "router-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { to: { name: "dashboard" } }
+                          },
+                          [_vm._v(_vm._s(_vm.username))]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.role === 2
+                      ? _c(
+                          "router-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { to: { name: "admin" } }
+                          },
+                          [_vm._v(_vm._s(_vm.username))]
+                        )
+                      : _vm._e()
                   ],
                   1
                 ),
@@ -21427,9 +21441,8 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 
- //const API_URL = 'http://192.168.1.5:8000/api/';
 
-var API_URL = 'http://localhost:8000/api/';
+var API_URL = "http://localhost:8000/api/";
 
 var Admin =
 /*#__PURE__*/
@@ -21576,9 +21589,8 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 
- //const API_URL = 'http://192.168.1.5:8000/api/';
 
-var API_URL = 'http://localhost:8000/api/';
+var API_URL = "http://localhost:8000/api/";
 
 var Auth =
 /*#__PURE__*/
@@ -21642,6 +21654,7 @@ function () {
                 }, {
                   withCredentials: true
                 })["catch"](function (err) {
+                  console.log(err.response.data.message);
                   _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
                 });
 
@@ -21764,9 +21777,8 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
- //const API_URL = 'http://192.168.1.5:8000/api/';
 
-var API_URL = 'http://localhost:8000/api/';
+var API_URL = "http://localhost:8000/api/";
 
 var Public =
 /*#__PURE__*/
@@ -21845,9 +21857,8 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 
- //const API_URL = 'http://192.168.1.5:8000/api/';
 
-var API_URL = 'http://localhost:8000/api/';
+var API_URL = "http://localhost:8000/api/";
 
 var User =
 /*#__PURE__*/
@@ -22470,7 +22481,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       state.puns = data;
     },
     create: function create(state, data) {
-      state.puns.push({
+      state.puns.unshift({
         id: data.pun.id,
         title: data.pun.title,
         body: data.pun.body
