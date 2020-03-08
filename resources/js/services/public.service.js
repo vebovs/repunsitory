@@ -9,6 +9,13 @@ class Public {
         })  
         .catch(err => console.log(err));
     }
+
+    async VERIFICATION(url) {
+        return await axios.get(url, {
+            withCredentials: true
+        })
+        .catch(err => console.log(err));
+    }
 }
 
 export default new Public();

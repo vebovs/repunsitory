@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav class="navbar navbar-dark bg-dark mb-2">
+        <nav v-if="!toggle" class="navbar navbar-dark bg-dark mb-2">
             <router-link class="navbar-brand" :to="{ name : 'home' }">Repunsitory</router-link>
             <div v-if="!status">
                 <ul class="navbar-nav">
@@ -69,18 +69,13 @@ export default {
     },
 
     async created() {
-        console.log(this.$route.query.queryURL);
         if(this.$route.query.queryURL) {
-            this.toggle = true;
-            await axios.get(this.$route.query.queryURL, {
-                withCredentials: true
-            })
-            .then(response => {
-                console.log(response);
-            })
-            .catch(err => {
-                console.log(err.response.data.message);
+
+            this.$store.dispatch('verification', {
+                url: this.$route.query.queryURL
             });
+
+            this.toggle = true;
         }
         this.$store.dispatch('refresh');
     },

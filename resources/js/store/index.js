@@ -4,6 +4,7 @@ import AuthService from '../services/auth.service.js';
 import UserService from '../services/user.service.js';
 import PublicService from '../services/public.service.js';
 import AdminService from '../services/admin.service.js';
+import publicService from '../services/public.service.js';
 
 Vue.use(Vuex);
 
@@ -160,6 +161,16 @@ export default new Vuex.Store({
     return await AdminService.DELETE_PUN(data.id)
     .then(response => {
       commit('remove_pun', response.data);
+      return Promise.resolve();
+    })
+    .catch(err => {
+      return Promise.reject(err);
+    });
+  },
+
+  async verification({ commit }, data) {
+    return await publicService.VERIFICATION(data.url)
+    .then(() => {
       return Promise.resolve();
     })
     .catch(err => {

@@ -2006,27 +2006,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              console.log(_this.$route.query.queryURL);
+              if (_this.$route.query.queryURL) {
+                _this.$store.dispatch('verification', {
+                  url: _this.$route.query.queryURL
+                });
 
-              if (!_this.$route.query.queryURL) {
-                _context.next = 5;
-                break;
+                _this.toggle = true;
               }
 
-              _this.toggle = true;
-              _context.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(_this.$route.query.queryURL, {
-                withCredentials: true
-              }).then(function (response) {
-                console.log(response);
-              })["catch"](function (err) {
-                console.log(err.response.data.message);
-              });
-
-            case 5:
               _this.$store.dispatch('refresh');
 
-            case 6:
+            case 2:
             case "end":
               return _context.stop();
           }
@@ -3726,112 +3716,114 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "nav",
-      { staticClass: "navbar navbar-dark bg-dark mb-2" },
-      [
-        _c(
-          "router-link",
-          { staticClass: "navbar-brand", attrs: { to: { name: "home" } } },
-          [_vm._v("Repunsitory")]
-        ),
-        _vm._v(" "),
-        !_vm.status
-          ? _c("div", [
-              _c("ul", { staticClass: "navbar-nav" }, [
-                _c(
-                  "li",
-                  { staticClass: "nav-item" },
-                  [
+    !_vm.toggle
+      ? _c(
+          "nav",
+          { staticClass: "navbar navbar-dark bg-dark mb-2" },
+          [
+            _c(
+              "router-link",
+              { staticClass: "navbar-brand", attrs: { to: { name: "home" } } },
+              [_vm._v("Repunsitory")]
+            ),
+            _vm._v(" "),
+            !_vm.status
+              ? _c("div", [
+                  _c("ul", { staticClass: "navbar-nav" }, [
                     _c(
-                      "router-link",
-                      {
-                        staticClass: "nav-link",
-                        attrs: { to: { name: "login" } }
-                      },
-                      [_vm._v("Login")]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "li",
-                  { staticClass: "nav-item" },
-                  [
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "nav-link",
-                        attrs: { to: { name: "register" } }
-                      },
-                      [_vm._v("Register")]
-                    )
-                  ],
-                  1
-                )
-              ])
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.status
-          ? _c("div", [
-              _c("ul", { staticClass: "navbar-nav" }, [
-                _c(
-                  "li",
-                  { staticClass: "nav-item" },
-                  [
-                    _vm.role === 1
-                      ? _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
+                        _c(
                           "router-link",
                           {
                             staticClass: "nav-link",
-                            attrs: { to: { name: "dashboard" } }
+                            attrs: { to: { name: "login" } }
                           },
-                          [_vm._v(_vm._s(_vm.username))]
+                          [_vm._v("Login")]
                         )
-                      : _vm._e(),
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
-                    _vm.role === 2
-                      ? _c(
+                    _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
+                        _c(
                           "router-link",
                           {
                             staticClass: "nav-link",
-                            attrs: { to: { name: "admin" } }
+                            attrs: { to: { name: "register" } }
                           },
-                          [_vm._v(_vm._s(_vm.username))]
+                          [_vm._v("Register")]
                         )
-                      : _vm._e()
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "li",
-                  { staticClass: "nav-item" },
-                  [
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "nav-link",
-                        attrs: { to: { name: "home" } },
-                        nativeOn: {
-                          click: function($event) {
-                            return _vm.logout($event)
-                          }
-                        }
-                      },
-                      [_vm._v("Logout")]
+                      ],
+                      1
                     )
-                  ],
-                  1
-                )
-              ])
-            ])
-          : _vm._e()
-      ],
-      1
-    ),
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.status
+              ? _c("div", [
+                  _c("ul", { staticClass: "navbar-nav" }, [
+                    _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
+                        _vm.role === 1
+                          ? _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: { to: { name: "dashboard" } }
+                              },
+                              [_vm._v(_vm._s(_vm.username))]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.role === 2
+                          ? _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: { to: { name: "admin" } }
+                              },
+                              [_vm._v(_vm._s(_vm.username))]
+                            )
+                          : _vm._e()
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { to: { name: "home" } },
+                            nativeOn: {
+                              click: function($event) {
+                                return _vm.logout($event)
+                              }
+                            }
+                          },
+                          [_vm._v("Logout")]
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                ])
+              : _vm._e()
+          ],
+          1
+        )
+      : _vm._e(),
     _vm._v(" "),
     _vm.error
       ? _c(
@@ -21538,7 +21530,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-var API_URL = "http://localhost:8000/api/";
+var API_URL = "http://192.168.1.5:8000/api/";
 
 var Admin =
 /*#__PURE__*/
@@ -21686,7 +21678,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-var API_URL = "http://localhost:8000/api/";
+var API_URL = "http://192.168.1.5:8000/api/";
 
 var Auth =
 /*#__PURE__*/
@@ -21874,7 +21866,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 
-var API_URL = "http://localhost:8000/api/";
+var API_URL = "http://192.168.1.5:8000/api/";
 
 var Public =
 /*#__PURE__*/
@@ -21917,6 +21909,40 @@ function () {
 
       return HOME;
     }()
+  }, {
+    key: "VERIFICATION",
+    value: function () {
+      var _VERIFICATION = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(url) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url, {
+                  withCredentials: true
+                })["catch"](function (err) {
+                  return console.log(err);
+                });
+
+              case 2:
+                return _context2.abrupt("return", _context2.sent);
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      function VERIFICATION(_x2) {
+        return _VERIFICATION.apply(this, arguments);
+      }
+
+      return VERIFICATION;
+    }()
   }]);
 
   return Public;
@@ -21954,7 +21980,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-var API_URL = "http://localhost:8000/api/";
+var API_URL = "http://192.168.1.5:8000/api/";
 
 var User =
 /*#__PURE__*/
@@ -22171,6 +22197,7 @@ __webpack_require__.r(__webpack_exports__);
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -22557,6 +22584,33 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             }
           }
         }, _callee13);
+      }))();
+    },
+    verification: function verification(_ref14, data) {
+      var commit = _ref14.commit;
+      return _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee14() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee14$(_context14) {
+          while (1) {
+            switch (_context14.prev = _context14.next) {
+              case 0:
+                _context14.next = 2;
+                return _services_public_service_js__WEBPACK_IMPORTED_MODULE_5__["default"].VERIFICATION(data.url).then(function () {
+                  return Promise.resolve();
+                })["catch"](function (err) {
+                  return Promise.reject(err);
+                });
+
+              case 2:
+                return _context14.abrupt("return", _context14.sent);
+
+              case 3:
+              case "end":
+                return _context14.stop();
+            }
+          }
+        }, _callee14);
       }))();
     }
   },
