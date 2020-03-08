@@ -6,8 +6,9 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\VerifyEmail;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
     use Notifiable;
 
@@ -64,5 +65,14 @@ class User extends Authenticatable implements JWTSubject
 
     public function likes() {
         return $this->hasMany(Like::class);
+    }
+
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification() {
+        $this->notify(new VerifyEmail());
     }
 }

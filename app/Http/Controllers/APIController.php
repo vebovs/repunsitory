@@ -50,6 +50,13 @@ class APIController extends Controller
 
         $user = User::find(Auth::user()->id);
 
+        if(!$user->email_verified_at) {
+            return response()->json([
+                'success' => false,
+                'message' => 'E-mail unverified'
+            ], 401);
+        }
+
         return response()->json([
             'success' => true,
             'token' => $token,
@@ -99,7 +106,7 @@ class APIController extends Controller
             ], 400);
         }
 
-        if(Banned::where('email', $request->email)) {
+        if(Banned::where('email', $request->email)->count()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Sorry, this email has been blacklisted'
@@ -112,6 +119,7 @@ class APIController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
+        $user->sendEmailVerificationNotification();
 
         if ($this->loginAfterSignUp) {
             return $this->login($request);

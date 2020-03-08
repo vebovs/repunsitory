@@ -15,7 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 // Route to handle page reload in Vue except for api routes
 Route::get('/{any?}', function (){
     return view('welcome');

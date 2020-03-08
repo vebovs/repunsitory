@@ -22,21 +22,9 @@ class AdminController extends Controller
     public function __construct(Request $request)
     {
         $this->admin = JWTAuth::parseToken()->authenticate();
-
-        if($this->admin->role != 2) {
-            $this->admin = null;
-        }
     }
 
     public function index() {
-
-        if(!$this->admin) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Not an administrator'
-            ], 400);
-        }
-
         $users = User::all();
         return response()->json(
             [
@@ -47,14 +35,6 @@ class AdminController extends Controller
     }
 
     public function destroyUser($id) {
-
-        if(!$this->admin) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Not an administrator'
-            ], 400);
-        }
-
         $user = User::find($id);
 
         if(!$user) {
@@ -83,14 +63,6 @@ class AdminController extends Controller
     }
 
     public function destroyPun($id) {
-
-        if(!$this->admin) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Not an administrator'
-            ], 400);
-        }
-
         $pun = Pun::find($id);
 
         if(!$pun) {

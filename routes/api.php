@@ -20,11 +20,18 @@ Route::get('popular', 'PublicPunController@popular');
 //List recent puns
 Route::get('recent', 'PublicPunController@recent');
 
-// Auth
+// User login
 Route::post('login', 'ApiController@login');
+
+//User registration
 Route::post('register', 'ApiController@register');
 
 Route::group(['middleware' => 'jwt.auth'], function () {
+
+    //Fetch user data upon page refresh
+    Route::get('refresh', 'ApiController@refresh');
+
+    //User logout
     Route::get('logout', 'ApiController@logout');
 
     //List all puns
@@ -46,15 +53,16 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('pun/like/{id}', 'PunController@like');
 
     //Get all users
-    Route::get('admin/users', 'AdminController@index');
+    Route::get('admin/users', 'AdminController@index')->middleware('admin.check');
 
     //Delete a user
-    Route::delete('admin/user/{id}', 'AdminController@destroyUser');
+    Route::delete('admin/user/{id}', 'AdminController@destroyUser')->middleware('admin.check');
 
     //Delete a pun
-    Route::delete('admin/pun/{id}', 'AdminController@destroyPun');
+    Route::delete('admin/pun/{id}', 'AdminController@destroyPun')->middleware('admin.check');
 
-    //Fetch user data upon page refresh
-    Route::get('refresh', 'ApiController@refresh');
 });
+
+// Email Verification
+Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
 

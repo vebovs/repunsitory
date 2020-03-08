@@ -30,6 +30,18 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+        <div v-if="toggle" class="container">
+            <div class="card">
+                <div class="card-header">
+                    Success!
+                </div>
+                <div class="card-body">
+                    <h3>E-mail verification successful</h3>
+                    <p>E-mail has been verified. You can now log in to your account</p>
+                    <button v-on:click="login" type="button" class="btn btn-primary"> Go to login page</button>
+                </div>
+            </div>
+        </div>
         <div>
             <router-view></router-view>
         </div>
@@ -38,11 +50,12 @@
 
 <script>
 import { mapState } from 'vuex';
+import axios from 'axios';
 
 export default {
     data() {
         return {
-            
+            toggle: false
         }
     },
 
@@ -55,7 +68,20 @@ export default {
         ])
     },
 
-    created() {
+    async created() {
+        console.log(this.$route.query.queryURL);
+        if(this.$route.query.queryURL) {
+            this.toggle = true;
+            await axios.get(this.$route.query.queryURL, {
+                withCredentials: true
+            })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(err => {
+                console.log(err.response.data.message);
+            });
+        }
         this.$store.dispatch('refresh');
     },
 
@@ -66,6 +92,11 @@ export default {
         
         clear_error() {
             this.$store.commit('error', '');
+        },
+
+        login() {
+            this.toggle = false;
+            this.$router.push({ name: 'login' });
         }
     }
 }
