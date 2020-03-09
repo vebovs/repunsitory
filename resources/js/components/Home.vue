@@ -1,11 +1,18 @@
 <template>
+<div>
+    <div>
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a v-on:click="toggle = true" class="nav-link" href="#">Popular puns</a>
+                    </li>
+                    <li class="nav-item">
+                        <a v-on:click="toggle = false" class="nav-link" href="#">Recent puns</a>
+                    </li>
+                </ul>
+        </nav>
+    </div>
     <div class="container">
-        <div class="text-center">
-            <div class="btn-group btn-group-lg mt-2" role="group" aria-label="Basic example">
-                <button v-on:click="toggle = true" type="button" class="btn btn-secondary">Popular puns</button>
-                <button v-on:click="toggle = false" type="button" class="btn btn-secondary border-left">Recent puns</button>
-            </div>
-        </div>
         <div class="mt-2">
             <div class="text-center">
             <h2>{{ title }}</h2>
@@ -34,6 +41,8 @@
             </nav>
         </div>
     </div>
+</div>
+    
 </template>
 
 <script>

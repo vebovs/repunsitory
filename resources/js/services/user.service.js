@@ -46,6 +46,15 @@ class User {
       });
     }
 
+    async DELETE() {
+      return await axios.delete(API_URL + 'user', {
+        withCredentials: true
+      })
+      .catch(err => {
+        store.commit('error', err.response.data.message);
+      });
+    }
+
     async LIKE(id) {
       return await axios.get(API_URL + 'pun/like/' + `${id}`, {
         withCredentials: true

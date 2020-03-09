@@ -113,6 +113,17 @@ export default new Vuex.Store({
     });
   },
 
+  async delete({ commit }) {
+    return await UserService.DELETE()
+    .then(() => {
+      commit('reset');
+      return Promise.resolve();
+    })
+    .catch(err => {
+      return Promise.reject(err);
+    })
+  },
+
   async like({ commit }, data) {
     return await UserService.LIKE(data.id)
     .then(response => {
@@ -148,6 +159,17 @@ export default new Vuex.Store({
 
   async delete_user({ commit }, data) {
     return await AdminService.DELETE_USER(data.id)
+    .then(response => {
+      commit('remove_user', response.data);
+      return Promise.resolve();
+    })  
+    .catch(err => {
+      return Promise.reject(err);
+    });
+  },
+
+  async ban_user({ commit }, data) {
+    return await AdminService.BAN_USER(data.id)
     .then(response => {
       commit('remove_user', response.data);
       return Promise.resolve();

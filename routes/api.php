@@ -34,6 +34,9 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     //User logout
     Route::get('logout', 'ApiController@logout');
 
+    //Delete user
+    Route::delete('user', 'UserController@destroy');
+
     //List all puns
     Route::get('puns', 'PunController@index');
 
@@ -57,6 +60,9 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 
     //Delete a user
     Route::delete('admin/user/{id}', 'AdminController@destroyUser')->middleware('admin.check');
+
+    //Ban a user
+    Route::delete('admin/ban/{id}', 'AdminController@banUser')->middleware('admin.check');
 
     //Delete a pun
     Route::delete('admin/pun/{id}', 'AdminController@destroyPun')->middleware('admin.check');

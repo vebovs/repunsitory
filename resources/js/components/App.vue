@@ -1,9 +1,9 @@
 <template>
     <div>
-        <nav v-if="!toggle" class="navbar navbar-dark bg-dark mb-2">
+        <nav v-if="!toggle" class="navbar navbar-expand navbar-light bg-white">
             <router-link class="navbar-brand" :to="{ name : 'home' }">Repunsitory</router-link>
-            <div v-if="!status">
-                <ul class="navbar-nav">
+            <div v-if="!status" class="navbar-collapse">
+                <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item">
                         <router-link class="nav-link" :to="{ name : 'login' }">Login</router-link>
                     </li>

@@ -14,7 +14,8 @@
                 <h4>Username: {{ user.username }}</h4>
                 <h4>E-mail: {{ user.email }}</h4>
                 <h4>User ID: {{ user.id }}</h4>
-                <button v-on:click="removeUser(user.id)" type="button" class="btn btn-primary btn-danger">Delete</button>
+                <button v-on:click="removeUser(user.id)" type="button" class="btn btn-primary btn-danger m-1">Delete</button>
+                <button v-on:click="banUser(user.id)" type="button" class="btn btn-primary btn-danger m-1">Ban</button>
             </div>
         </div>
         <div v-if="toggle">
@@ -55,6 +56,12 @@ export default {
     methods: {
         removeUser(id) {
             this.$store.dispatch('delete_user', {
+                id: id
+            });
+        },
+
+        banUser(id) {
+            this.$store.dispatch('ban_user', {
                 id: id
             });
         },

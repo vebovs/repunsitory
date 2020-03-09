@@ -2,24 +2,46 @@
   <div class="container">
     <div class="text-center">
       <div class="btn-group btn-group-lg mt-2" role="group" aria-label="Basic example">
-        <button v-on:click="state = false" type="button" class="btn btn-secondary">Overview</button>
-        <button v-on:click="state = true" type="button" class="btn btn-secondary border-left">Create</button>
+        <button v-on:click="state = false, settings = false" type="button" class="btn btn-secondary">Overview</button>
+        <button v-on:click="state = true, settings = false" type="button" class="btn btn-secondary border-left">Create</button>
+        <button v-on:click="settings = true" type="button" class="btn btn-secondary border-left">Settings</button>
       </div>
     </div>
-    <div v-if="state">
-      <form class="m-4" @submit.prevent="submit" method="post">
+    <div class="mt-4" v-if="state && !settings">
+      <div class="card">
+        <div class="card-header">
+          Create a pun
+        </div>
+        <div class="card-body">
+          <form @submit.prevent="submit" method="post">
+              <div class="form-group">
+                <label for="title">Title</label>
+                <input v-model="title" type="text" class="form-control">
+            </div>
             <div class="form-group">
-              <label for="title">Title</label>
-              <input v-model="title" type="text" class="form-control">
-          </div>
-          <div class="form-group">
-              <label for="body">Body</label>
-              <textarea v-model="body" class="form-control" rows="8"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary mt-2">Submit</button>
-      </form>
+                <label for="body">Body</label>
+                <textarea v-model="body" class="form-control" rows="8"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Submit</button>
+          </form>
+        </div>
+      </div>
     </div>
-    <div v-if="!state">
+    <div class="mt-4" v-if="settings">
+      <div class="container">
+        <div class="card">
+          <div class="card-header">
+            Settings
+          </div>
+          <div class="card-body">
+            <h3>Delete account</h3>
+            <p>This will remove your account and all of your posts</p>
+            <button v-on:click="destroy()" class="btn btn-danger mt-2">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="!state && !settings">
       <div class="card card-body m-4" v-for="pun in puns" v-bind:key="pun.id">
         <h3>{{ pun.title }}</h3>
         <p>{{ pun.body }}</p>
@@ -70,6 +92,7 @@ export default {
       title: '',
       body: '',
       state: false,
+      settings: false,
       edit: {
         id: '',
         title: '',
@@ -118,6 +141,13 @@ export default {
     remove(id) {
       this.$store.dispatch('remove', {
         id: id
+      });
+    },
+
+    destroy() {
+      this.$store.dispatch('delete')
+      .then(() => {
+        this.$router.push({ name: 'home' });
       });
     }
   }

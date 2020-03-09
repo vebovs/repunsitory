@@ -28,6 +28,15 @@ class Admin {
             store.commit('error', err.response.data.message);
         });
     }
+
+    async BAN_USER(id) {
+        return await axios.delete(API_URL + 'admin/ban/' + `${id}`, {
+            withCredentials: true
+        })
+        .catch(err => {
+            store.commit('error', err.response.data.message);
+        });
+    }
 }
 
 export default new Admin();

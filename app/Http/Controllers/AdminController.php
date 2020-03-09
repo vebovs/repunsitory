@@ -34,7 +34,7 @@ class AdminController extends Controller
             ], 200);
     }
 
-    public function destroyUser($id) {
+    public function banUser($id) {
         $user = User::find($id);
 
         if(!$user) {
@@ -48,6 +48,29 @@ class AdminController extends Controller
         $banned->user_id = $user->id;
         $banned->email = $user->email;
         $banned->save();
+
+        if ($user->delete()) {
+            return response()->json([
+                'success' => true,
+                'id' => $id
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'User could not be deleted.'
+            ], 500);
+        }
+    }
+
+    public function destroyUser($id) {
+        $user = User::find($id);
+
+        if(!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, user with id ' . $id . ' cannot be found.'
+            ], 400);
+        }
 
         if ($user->delete()) {
             return response()->json([

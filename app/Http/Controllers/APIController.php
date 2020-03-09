@@ -50,12 +50,12 @@ class APIController extends Controller
 
         $user = User::find(Auth::user()->id);
 
-        if(!$user->email_verified_at) {
+        /*if(!$user->email_verified_at) {
             return response()->json([
                 'success' => false,
                 'message' => 'E-mail unverified'
             ], 401);
-        }
+        }*/
 
         return response()->json([
             'success' => true,
@@ -119,7 +119,7 @@ class APIController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        $user->sendEmailVerificationNotification();
+        //$user->sendEmailVerificationNotification();
 
         if ($this->loginAfterSignUp) {
             return $this->login($request);

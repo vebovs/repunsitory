@@ -2096,6 +2096,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2331,6 +2340,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2348,6 +2358,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: {
     removeUser: function removeUser(id) {
       this.$store.dispatch('delete_user', {
+        id: id
+      });
+    },
+    banUser: function banUser(id) {
+      this.$store.dispatch('ban_user', {
         id: id
       });
     },
@@ -2440,6 +2455,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2447,6 +2484,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       title: '',
       body: '',
       state: false,
+      settings: false,
       edit: {
         id: '',
         title: '',
@@ -2488,6 +2526,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     remove: function remove(id) {
       this.$store.dispatch('remove', {
         id: id
+      });
+    },
+    destroy: function destroy() {
+      var _this2 = this;
+
+      this.$store.dispatch('delete').then(function () {
+        _this2.$router.push({
+          name: 'home'
+        });
       });
     }
   }
@@ -3719,7 +3766,7 @@ var render = function() {
     !_vm.toggle
       ? _c(
           "nav",
-          { staticClass: "navbar navbar-dark bg-dark mb-2" },
+          { staticClass: "navbar navbar-expand navbar-light bg-white" },
           [
             _c(
               "router-link",
@@ -3728,8 +3775,8 @@ var render = function() {
             ),
             _vm._v(" "),
             !_vm.status
-              ? _c("div", [
-                  _c("ul", { staticClass: "navbar-nav" }, [
+              ? _c("div", { staticClass: "navbar-collapse" }, [
+                  _c("ul", { staticClass: "nav navbar-nav ml-auto" }, [
                     _c(
                       "li",
                       { staticClass: "nav-item" },
@@ -3912,223 +3959,230 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "text-center" }, [
-      _c(
-        "div",
-        {
-          staticClass: "btn-group btn-group-lg mt-2",
-          attrs: { role: "group", "aria-label": "Basic example" }
-        },
-        [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-secondary",
-              attrs: { type: "button" },
-              on: {
-                click: function($event) {
-                  _vm.toggle = true
+  return _c("div", [
+    _c("div", [
+      _c("nav", { staticClass: "navbar navbar-expand navbar-dark bg-dark" }, [
+        _c("ul", { staticClass: "navbar-nav" }, [
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.toggle = true
+                  }
                 }
-              }
-            },
-            [_vm._v("Popular puns")]
-          ),
+              },
+              [_vm._v("Popular puns")]
+            )
+          ]),
           _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-secondary border-left",
-              attrs: { type: "button" },
-              on: {
-                click: function($event) {
-                  _vm.toggle = false
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.toggle = false
+                  }
                 }
-              }
-            },
-            [_vm._v("Recent puns")]
-          )
-        ]
-      )
+              },
+              [_vm._v("Recent puns")]
+            )
+          ])
+        ])
+      ])
     ]),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "mt-2" },
-      [
-        _c("div", { staticClass: "text-center" }, [
-          _c("h2", [_vm._v(_vm._s(_vm.title))]),
-          _vm._v(" "),
-          _c("nav", { attrs: { "aria-label": "Page navigation example" } }, [
-            _c("ul", { staticClass: "pagination justify-content-center" }, [
-              _c(
-                "li",
-                {
-                  staticClass: "page-item",
-                  class: [{ disabled: !_vm.pagination.prev_page_url }]
-                },
-                [
+    _c("div", { staticClass: "container" }, [
+      _c(
+        "div",
+        { staticClass: "mt-2" },
+        [
+          _c("div", { staticClass: "text-center" }, [
+            _c("h2", [_vm._v(_vm._s(_vm.title))]),
+            _vm._v(" "),
+            _c("nav", { attrs: { "aria-label": "Page navigation example" } }, [
+              _c("ul", { staticClass: "pagination justify-content-center" }, [
+                _c(
+                  "li",
+                  {
+                    staticClass: "page-item",
+                    class: [{ disabled: !_vm.pagination.prev_page_url }]
+                  },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "page-link",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            return _vm.index(_vm.pagination.prev_page_url)
+                          }
+                        }
+                      },
+                      [_vm._v("Previous")]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("li", { staticClass: "page-item disabled" }, [
                   _c(
                     "a",
                     {
-                      staticClass: "page-link",
-                      attrs: { href: "#" },
-                      on: {
-                        click: function($event) {
-                          return _vm.index(_vm.pagination.prev_page_url)
-                        }
-                      }
+                      staticClass: "page-link text-dark",
+                      attrs: { href: "#" }
                     },
-                    [_vm._v("Previous")]
+                    [
+                      _vm._v(
+                        "Page " +
+                          _vm._s(_vm.pagination.current_page) +
+                          " of " +
+                          _vm._s(_vm.pagination.last_page)
+                      )
+                    ]
                   )
-                ]
-              ),
-              _vm._v(" "),
-              _c("li", { staticClass: "page-item disabled" }, [
+                ]),
+                _vm._v(" "),
                 _c(
-                  "a",
-                  { staticClass: "page-link text-dark", attrs: { href: "#" } },
+                  "li",
+                  {
+                    staticClass: "page-item",
+                    class: [{ disabled: !_vm.pagination.next_page_url }]
+                  },
                   [
-                    _vm._v(
-                      "Page " +
-                        _vm._s(_vm.pagination.current_page) +
-                        " of " +
-                        _vm._s(_vm.pagination.last_page)
+                    _c(
+                      "a",
+                      {
+                        staticClass: "page-link",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            return _vm.index(_vm.pagination.next_page_url)
+                          }
+                        }
+                      },
+                      [_vm._v("Next")]
                     )
                   ]
                 )
-              ]),
-              _vm._v(" "),
-              _c(
-                "li",
-                {
-                  staticClass: "page-item",
-                  class: [{ disabled: !_vm.pagination.next_page_url }]
-                },
-                [
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.home, function(pun) {
+            return _c(
+              "div",
+              { key: pun.id, staticClass: "card card-body mb-2" },
+              [
+                _c("h3", [_vm._v(_vm._s(pun.title))]),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(pun.body))]),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-right" }, [
+                  _c("p", [_vm._v("Likes: " + _vm._s(pun.likes))]),
+                  _vm._v(" "),
                   _c(
-                    "a",
+                    "button",
                     {
-                      staticClass: "page-link",
-                      attrs: { href: "#" },
+                      staticClass: "btn btn-primary btn-success",
+                      attrs: { type: "button" },
                       on: {
                         click: function($event) {
-                          return _vm.index(_vm.pagination.next_page_url)
+                          return _vm.like(pun.id)
                         }
                       }
                     },
-                    [_vm._v("Next")]
+                    [_vm._v("Like")]
                   )
-                ]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.home, function(pun) {
-          return _c(
-            "div",
-            { key: pun.id, staticClass: "card card-body mb-2" },
+                ])
+              ]
+            )
+          }),
+          _vm._v(" "),
+          _c(
+            "nav",
+            {
+              staticClass: "mt-3",
+              attrs: { "aria-label": "Page navigation example" }
+            },
             [
-              _c("h3", [_vm._v(_vm._s(pun.title))]),
-              _vm._v(" "),
-              _c("p", [_vm._v(_vm._s(pun.body))]),
-              _vm._v(" "),
-              _c("div", { staticClass: "text-right" }, [
-                _c("p", [_vm._v("Likes: " + _vm._s(pun.likes))]),
+              _c("ul", { staticClass: "pagination justify-content-center" }, [
+                _c(
+                  "li",
+                  {
+                    staticClass: "page-item",
+                    class: [{ disabled: !_vm.pagination.prev_page_url }]
+                  },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "page-link",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            return _vm.index(_vm.pagination.prev_page_url)
+                          }
+                        }
+                      },
+                      [_vm._v("Previous")]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("li", { staticClass: "page-item disabled" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "page-link text-dark",
+                      attrs: { href: "#" }
+                    },
+                    [
+                      _vm._v(
+                        "Page " +
+                          _vm._s(_vm.pagination.current_page) +
+                          " of " +
+                          _vm._s(_vm.pagination.last_page)
+                      )
+                    ]
+                  )
+                ]),
                 _vm._v(" "),
                 _c(
-                  "button",
+                  "li",
                   {
-                    staticClass: "btn btn-primary btn-success",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.like(pun.id)
-                      }
-                    }
+                    staticClass: "page-item",
+                    class: [{ disabled: !_vm.pagination.next_page_url }]
                   },
-                  [_vm._v("Like")]
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "page-link",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            return _vm.index(_vm.pagination.next_page_url)
+                          }
+                        }
+                      },
+                      [_vm._v("Next")]
+                    )
+                  ]
                 )
               ])
             ]
           )
-        }),
-        _vm._v(" "),
-        _c(
-          "nav",
-          {
-            staticClass: "mt-3",
-            attrs: { "aria-label": "Page navigation example" }
-          },
-          [
-            _c("ul", { staticClass: "pagination justify-content-center" }, [
-              _c(
-                "li",
-                {
-                  staticClass: "page-item",
-                  class: [{ disabled: !_vm.pagination.prev_page_url }]
-                },
-                [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "page-link",
-                      attrs: { href: "#" },
-                      on: {
-                        click: function($event) {
-                          return _vm.index(_vm.pagination.prev_page_url)
-                        }
-                      }
-                    },
-                    [_vm._v("Previous")]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c("li", { staticClass: "page-item disabled" }, [
-                _c(
-                  "a",
-                  { staticClass: "page-link text-dark", attrs: { href: "#" } },
-                  [
-                    _vm._v(
-                      "Page " +
-                        _vm._s(_vm.pagination.current_page) +
-                        " of " +
-                        _vm._s(_vm.pagination.last_page)
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "li",
-                {
-                  staticClass: "page-item",
-                  class: [{ disabled: !_vm.pagination.next_page_url }]
-                },
-                [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "page-link",
-                      attrs: { href: "#" },
-                      on: {
-                        click: function($event) {
-                          return _vm.index(_vm.pagination.next_page_url)
-                        }
-                      }
-                    },
-                    [_vm._v("Next")]
-                  )
-                ]
-              )
-            ])
-          ]
-        )
-      ],
-      2
-    )
+        ],
+        2
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -4449,7 +4503,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary btn-danger",
+                    staticClass: "btn btn-primary btn-danger m-1",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -4458,6 +4512,20 @@ var render = function() {
                     }
                   },
                   [_vm._v("Delete")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary btn-danger m-1",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.banUser(user.id)
+                      }
+                    }
+                  },
+                  [_vm._v("Ban")]
                 )
               ]
             )
@@ -4548,7 +4616,7 @@ var render = function() {
               attrs: { type: "button" },
               on: {
                 click: function($event) {
-                  _vm.state = false
+                  ;(_vm.state = false), (_vm.settings = false)
                 }
               }
             },
@@ -4562,97 +4630,151 @@ var render = function() {
               attrs: { type: "button" },
               on: {
                 click: function($event) {
-                  _vm.state = true
+                  ;(_vm.state = true), (_vm.settings = false)
                 }
               }
             },
             [_vm._v("Create")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-secondary border-left",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  _vm.settings = true
+                }
+              }
+            },
+            [_vm._v("Settings")]
           )
         ]
       )
     ]),
     _vm._v(" "),
-    _vm.state
-      ? _c("div", [
-          _c(
-            "form",
-            {
-              staticClass: "m-4",
-              attrs: { method: "post" },
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.submit($event)
-                }
-              }
-            },
-            [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "title" } }, [_vm._v("Title")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.title,
-                      expression: "title"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.title },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.title = $event.target.value
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "body" } }, [_vm._v("Body")]),
-                _vm._v(" "),
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.body,
-                      expression: "body"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { rows: "8" },
-                  domProps: { value: _vm.body },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.body = $event.target.value
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
+    _vm.state && !_vm.settings
+      ? _c("div", { staticClass: "mt-4" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _vm._v("\n        Create a pun\n      ")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
               _c(
-                "button",
+                "form",
                 {
-                  staticClass: "btn btn-primary mt-2",
-                  attrs: { type: "submit" }
+                  attrs: { method: "post" },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.submit($event)
+                    }
+                  }
                 },
-                [_vm._v("Submit")]
+                [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "title" } }, [_vm._v("Title")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.title,
+                          expression: "title"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.title },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.title = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "body" } }, [_vm._v("Body")]),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.body,
+                          expression: "body"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { rows: "8" },
+                      domProps: { value: _vm.body },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.body = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary mt-2",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("Submit")]
+                  )
+                ]
               )
-            ]
-          )
+            ])
+          ])
         ])
       : _vm._e(),
     _vm._v(" "),
-    !_vm.state
+    _vm.settings
+      ? _c("div", { staticClass: "mt-4" }, [
+          _c("div", { staticClass: "container" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-header" }, [
+                _vm._v("\n          Settings\n        ")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("h3", [_vm._v("Delete account")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v("This will remove your account and all of your posts")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger mt-2",
+                    on: {
+                      click: function($event) {
+                        return _vm.destroy()
+                      }
+                    }
+                  },
+                  [_vm._v("Delete")]
+                )
+              ])
+            ])
+          ])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    !_vm.state && !_vm.settings
       ? _c(
           "div",
           _vm._l(_vm.puns, function(pun) {
@@ -21530,7 +21652,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-var API_URL = "http://192.168.1.5:8000/api/";
+var API_URL = "http://localhost:8000/api/";
 
 var Admin =
 /*#__PURE__*/
@@ -21641,6 +21763,40 @@ function () {
 
       return DELETE_PUN;
     }()
+  }, {
+    key: "BAN_USER",
+    value: function () {
+      var _BAN_USER = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(id) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"](API_URL + 'admin/ban/' + "".concat(id), {
+                  withCredentials: true
+                })["catch"](function (err) {
+                  _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
+                });
+
+              case 2:
+                return _context4.abrupt("return", _context4.sent);
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }));
+
+      function BAN_USER(_x3) {
+        return _BAN_USER.apply(this, arguments);
+      }
+
+      return BAN_USER;
+    }()
   }]);
 
   return Admin;
@@ -21678,7 +21834,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-var API_URL = "http://192.168.1.5:8000/api/";
+var API_URL = "http://localhost:8000/api/";
 
 var Auth =
 /*#__PURE__*/
@@ -21866,7 +22022,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 
-var API_URL = "http://192.168.1.5:8000/api/";
+var API_URL = "http://localhost:8000/api/";
 
 var Public =
 /*#__PURE__*/
@@ -21980,7 +22136,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-var API_URL = "http://192.168.1.5:8000/api/";
+var API_URL = "http://localhost:8000/api/";
 
 var User =
 /*#__PURE__*/
@@ -22132,17 +22288,17 @@ function () {
       return UPDATE;
     }()
   }, {
-    key: "LIKE",
+    key: "DELETE",
     value: function () {
-      var _LIKE = _asyncToGenerator(
+      var _DELETE = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(id) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(API_URL + 'pun/like/' + "".concat(id), {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"](API_URL + 'user', {
                   withCredentials: true
                 })["catch"](function (err) {
                   _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
@@ -22157,6 +22313,40 @@ function () {
             }
           }
         }, _callee5);
+      }));
+
+      function DELETE() {
+        return _DELETE.apply(this, arguments);
+      }
+
+      return DELETE;
+    }()
+  }, {
+    key: "LIKE",
+    value: function () {
+      var _LIKE = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(id) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(API_URL + 'pun/like/' + "".concat(id), {
+                  withCredentials: true
+                })["catch"](function (err) {
+                  _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
+                });
+
+              case 2:
+                return _context6.abrupt("return", _context6.sent);
+
+              case 3:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
       }));
 
       function LIKE(_x7) {
@@ -22446,7 +22636,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee8);
       }))();
     },
-    like: function like(_ref9, data) {
+    "delete": function _delete(_ref9) {
       var commit = _ref9.commit;
       return _asyncToGenerator(
       /*#__PURE__*/
@@ -22456,8 +22646,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             switch (_context9.prev = _context9.next) {
               case 0:
                 _context9.next = 2;
-                return _services_user_service_js__WEBPACK_IMPORTED_MODULE_4__["default"].LIKE(data.id).then(function (response) {
-                  commit('likes', response.data);
+                return _services_user_service_js__WEBPACK_IMPORTED_MODULE_4__["default"].DELETE().then(function () {
+                  commit('reset');
                   return Promise.resolve();
                 })["catch"](function (err) {
                   return Promise.reject(err);
@@ -22474,7 +22664,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee9);
       }))();
     },
-    home: function home(_ref10, data) {
+    like: function like(_ref10, data) {
       var commit = _ref10.commit;
       return _asyncToGenerator(
       /*#__PURE__*/
@@ -22484,8 +22674,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             switch (_context10.prev = _context10.next) {
               case 0:
                 _context10.next = 2;
-                return _services_public_service_js__WEBPACK_IMPORTED_MODULE_5__["default"].HOME(data.page_url).then(function (response) {
-                  commit('public', response.data);
+                return _services_user_service_js__WEBPACK_IMPORTED_MODULE_4__["default"].LIKE(data.id).then(function (response) {
+                  commit('likes', response.data);
                   return Promise.resolve();
                 })["catch"](function (err) {
                   return Promise.reject(err);
@@ -22502,7 +22692,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee10);
       }))();
     },
-    users: function users(_ref11) {
+    home: function home(_ref11, data) {
       var commit = _ref11.commit;
       return _asyncToGenerator(
       /*#__PURE__*/
@@ -22512,8 +22702,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             switch (_context11.prev = _context11.next) {
               case 0:
                 _context11.next = 2;
-                return _services_admin_service_js__WEBPACK_IMPORTED_MODULE_6__["default"].USERS().then(function (response) {
-                  commit('admin', response.data);
+                return _services_public_service_js__WEBPACK_IMPORTED_MODULE_5__["default"].HOME(data.page_url).then(function (response) {
+                  commit('public', response.data);
                   return Promise.resolve();
                 })["catch"](function (err) {
                   return Promise.reject(err);
@@ -22530,7 +22720,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee11);
       }))();
     },
-    delete_user: function delete_user(_ref12, data) {
+    users: function users(_ref12) {
       var commit = _ref12.commit;
       return _asyncToGenerator(
       /*#__PURE__*/
@@ -22540,8 +22730,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             switch (_context12.prev = _context12.next) {
               case 0:
                 _context12.next = 2;
-                return _services_admin_service_js__WEBPACK_IMPORTED_MODULE_6__["default"].DELETE_USER(data.id).then(function (response) {
-                  commit('remove_user', response.data);
+                return _services_admin_service_js__WEBPACK_IMPORTED_MODULE_6__["default"].USERS().then(function (response) {
+                  commit('admin', response.data);
                   return Promise.resolve();
                 })["catch"](function (err) {
                   return Promise.reject(err);
@@ -22558,7 +22748,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee12);
       }))();
     },
-    delete_pun: function delete_pun(_ref13, data) {
+    delete_user: function delete_user(_ref13, data) {
       var commit = _ref13.commit;
       return _asyncToGenerator(
       /*#__PURE__*/
@@ -22568,8 +22758,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             switch (_context13.prev = _context13.next) {
               case 0:
                 _context13.next = 2;
-                return _services_admin_service_js__WEBPACK_IMPORTED_MODULE_6__["default"].DELETE_PUN(data.id).then(function (response) {
-                  commit('remove_pun', response.data);
+                return _services_admin_service_js__WEBPACK_IMPORTED_MODULE_6__["default"].DELETE_USER(data.id).then(function (response) {
+                  commit('remove_user', response.data);
                   return Promise.resolve();
                 })["catch"](function (err) {
                   return Promise.reject(err);
@@ -22586,7 +22776,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee13);
       }))();
     },
-    verification: function verification(_ref14, data) {
+    ban_user: function ban_user(_ref14, data) {
       var commit = _ref14.commit;
       return _asyncToGenerator(
       /*#__PURE__*/
@@ -22596,7 +22786,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             switch (_context14.prev = _context14.next) {
               case 0:
                 _context14.next = 2;
-                return _services_public_service_js__WEBPACK_IMPORTED_MODULE_5__["default"].VERIFICATION(data.url).then(function () {
+                return _services_admin_service_js__WEBPACK_IMPORTED_MODULE_6__["default"].BAN_USER(data.id).then(function (response) {
+                  commit('remove_user', response.data);
                   return Promise.resolve();
                 })["catch"](function (err) {
                   return Promise.reject(err);
@@ -22611,6 +22802,61 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             }
           }
         }, _callee14);
+      }))();
+    },
+    delete_pun: function delete_pun(_ref15, data) {
+      var commit = _ref15.commit;
+      return _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee15() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee15$(_context15) {
+          while (1) {
+            switch (_context15.prev = _context15.next) {
+              case 0:
+                _context15.next = 2;
+                return _services_admin_service_js__WEBPACK_IMPORTED_MODULE_6__["default"].DELETE_PUN(data.id).then(function (response) {
+                  commit('remove_pun', response.data);
+                  return Promise.resolve();
+                })["catch"](function (err) {
+                  return Promise.reject(err);
+                });
+
+              case 2:
+                return _context15.abrupt("return", _context15.sent);
+
+              case 3:
+              case "end":
+                return _context15.stop();
+            }
+          }
+        }, _callee15);
+      }))();
+    },
+    verification: function verification(_ref16, data) {
+      var commit = _ref16.commit;
+      return _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee16() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee16$(_context16) {
+          while (1) {
+            switch (_context16.prev = _context16.next) {
+              case 0:
+                _context16.next = 2;
+                return _services_public_service_js__WEBPACK_IMPORTED_MODULE_5__["default"].VERIFICATION(data.url).then(function () {
+                  return Promise.resolve();
+                })["catch"](function (err) {
+                  return Promise.reject(err);
+                });
+
+              case 2:
+                return _context16.abrupt("return", _context16.sent);
+
+              case 3:
+              case "end":
+                return _context16.stop();
+            }
+          }
+        }, _callee16);
       }))();
     }
   },
