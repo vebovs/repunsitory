@@ -1,13 +1,31 @@
 <template>
-  <div class="container">
-    <div class="text-center">
-      <div class="btn-group btn-group-lg mt-2" role="group" aria-label="Basic example">
-        <button v-on:click="state = false, settings = false" type="button" class="btn btn-secondary">Overview</button>
-        <button v-on:click="state = true, settings = false" type="button" class="btn btn-secondary border-left">Create</button>
-        <button v-on:click="settings = true" type="button" class="btn btn-secondary border-left">Settings</button>
-      </div>
+  <div>
+    <div>
+      <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a v-on:click="overview = true, create = false, settings = false, liked = false" class="nav-link" href="#">Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a v-on:click="overview = false, create = false, settings = false, liked = true" class="nav-link" href="#">Liked</a>
+                    </li>
+                    <li class="nav-item">
+                        <a v-on:click="overview = false, create = true, settings = false, liked = false" class="nav-link" href="#">Create</a>
+                    </li>
+                    <li class="nav-item">
+                        <a v-on:click="overview = false, create = false, settings = true, liked = false" class="nav-link" href="#">Settings</a>
+                    </li>
+                </ul>
+        </nav>
     </div>
-    <div class="mt-4" v-if="state && !settings">
+    <div class="container">
+      <div class="mt-4" v-if="liked">
+        <div class="card card-body mb-2" v-for="pun in liked_puns" v-bind:key="pun.id">
+                <h3>{{ pun.title }}</h3>
+                <p>{{ pun.body }}</p>
+            </div>
+      </div>
+      <div class="mt-4" v-if="create">
       <div class="card">
         <div class="card-header">
           Create a pun
@@ -41,7 +59,7 @@
         </div>
       </div>
     </div>
-    <div v-if="!state && !settings">
+    <div v-if="overview">
       <div class="card card-body m-4" v-for="pun in puns" v-bind:key="pun.id">
         <h3>{{ pun.title }}</h3>
         <p>{{ pun.body }}</p>
@@ -80,6 +98,7 @@
 
       </div>
     </div>
+    </div>
   </div>
 </template>
 
@@ -91,8 +110,10 @@ export default {
     return {
       title: '',
       body: '',
-      state: false,
+      overview: true,
+      create: false,
       settings: false,
+      liked: false,
       edit: {
         id: '',
         title: '',
@@ -103,12 +124,14 @@ export default {
 
   computed: {
         ...mapState([
-            'puns'
+            'puns',
+            'liked_puns'
         ])
     },
 
   created() {
     this.$store.dispatch('show');
+    this.$store.dispatch('liked');
   },
 
   methods: {

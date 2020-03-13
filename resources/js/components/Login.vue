@@ -1,6 +1,10 @@
 <template>
+<div>
+  <div>
+      <nav class="navbar navbar-expand navbar-dark bg-dark"></nav>
+    </div>
   <div class="container">
-    <div class="card">
+    <div class="card mt-2">
       <div class="card-header">
         Login
       </div>
@@ -19,6 +23,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -48,6 +53,7 @@ export default {
         })
         .then(() => {
           if(!this.error) {
+            this.$store.dispatch('liked');
             this.$router.push({ name: 'home' });
           }
         });

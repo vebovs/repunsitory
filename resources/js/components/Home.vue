@@ -71,7 +71,8 @@ export default {
             'status',
             'home',
             'pagination',
-            'error'
+            'error',
+            'liked_puns',
         ])
     },
 
@@ -88,9 +89,36 @@ export default {
             if(!this.status) {
                 alert('You need to be logged in for this action');
             } else {
-                this.$store.dispatch('like', {
-                    id: id
-                });
+                if(!this.liked_puns) {
+                    this.$store.dispatch('liked')
+                    .then(() => {
+                        let found = false;
+                        this.liked_puns.find(e => {
+                            if(e.id === id) {
+                                found = true;
+                            }
+                        });
+
+                        if(!found) {
+                            this.$store.dispatch('like', {
+                                id: id
+                            });
+                        }
+                    });
+                } else {
+                    let found = false;
+                    this.liked_puns.find(e => {
+                        if(e.id === id) {
+                            found = true;
+                        }
+                    });
+
+                    if(!found) {
+                        this.$store.dispatch('like', {
+                            id: id
+                        });
+                    }
+                }
             }
         }
     }

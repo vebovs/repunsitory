@@ -5,6 +5,7 @@ import UserService from '../services/user.service.js';
 import PublicService from '../services/public.service.js';
 import AdminService from '../services/admin.service.js';
 import publicService from '../services/public.service.js';
+import userService from '../services/user.service.js';
 
 Vue.use(Vuex);
 
@@ -18,7 +19,8 @@ export default new Vuex.Store({
     home: [],
     pagination: {},
     users: [],
-    error: ''
+    error: '',
+    liked_puns: ''
   },
 
   actions: {
@@ -133,6 +135,17 @@ export default new Vuex.Store({
     .catch(err => {
       return Promise.reject(err);
     });
+  },
+
+  async liked({ commit }) {
+    return await userService.LIKED()
+    .then(response => {
+      commit('liked', response.data);
+      return Promise.resolve();
+    })
+    .catch(err => {
+      return Promise.reject(err);
+    })
   },
 
   async home({ commit }, data) {
@@ -257,6 +270,10 @@ export default new Vuex.Store({
           e.likes = data.pun.likes;
         }
       });
+    },
+
+    liked: (state, data) => {
+      state.liked_puns = data.liked_puns;
     },
 
     admin: (state, data) => {

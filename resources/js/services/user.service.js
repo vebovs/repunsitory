@@ -63,6 +63,13 @@ class User {
         store.commit('error', err.response.data.message);
       });
     }
+
+    async LIKED() {
+      return await axios.get(API_URL + 'user/liked', {
+        withCredentials: true
+      })
+      .catch(err => console.log(err));
+    }
 }
 
 export default new User();

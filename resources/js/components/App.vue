@@ -12,8 +12,8 @@
                     </li>
                 </ul>
             </div>
-            <div v-if="status">
-                <ul class="navbar-nav">
+            <div v-if="status" class="navbar-collapse">
+                <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item">
                         <router-link v-if="role === 1" class="nav-link" :to="{ name : 'dashboard' }">{{ username }}</router-link>
                         <router-link v-if="role === 2" class="nav-link" :to="{ name : 'admin' }">{{ username }}</router-link>
@@ -30,18 +30,21 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div v-if="toggle" class="container">
-            <div class="card">
-                <div class="card-header">
-                    Success!
-                </div>
-                <div class="card-body">
-                    <h3>E-mail verification successful</h3>
-                    <p>E-mail has been verified. You can now log in to your account</p>
-                    <button v-on:click="login" type="button" class="btn btn-primary"> Go to login page</button>
+        <div v-if="toggle">
+            <nav class="navbar navbar-expand navbar-dark bg-dark"></nav>
+                <div class="container">
+                    <div class="card">
+                        <div class="card-header">
+                            Success!
+                        </div>
+                        <div class="card-body">
+                            <h3>E-mail verification successful</h3>
+                            <p>E-mail has been verified. You can now log in to your account</p>
+                            <button v-on:click="login" type="button" class="btn btn-primary"> Go to login page</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
         <div>
             <router-view></router-view>
         </div>
@@ -50,7 +53,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import axios from 'axios';
 
 export default {
     data() {
@@ -68,7 +70,7 @@ export default {
         ])
     },
 
-    async created() {
+    created() {
         if(this.$route.query.queryURL) {
 
             this.$store.dispatch('verification', {

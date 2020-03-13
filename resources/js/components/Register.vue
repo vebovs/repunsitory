@@ -1,6 +1,10 @@
 <template>
+<div>
+  <div>
+    <nav class="navbar navbar-expand navbar-dark bg-dark"></nav>
+  </div>
   <div class="container">
-    <div class="card">
+    <div class="card mt-2">
       <div class="card-header">
         Register
       </div>
@@ -23,6 +27,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>

@@ -34,6 +34,9 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     //User logout
     Route::get('logout', 'ApiController@logout');
 
+    //Get puns liked by user
+    Route::get('user/liked', 'UserController@liked');
+
     //Delete user
     Route::delete('user', 'UserController@destroy');
 
