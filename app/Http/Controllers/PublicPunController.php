@@ -15,12 +15,21 @@ class PublicPunController extends Controller
      */
     public function popular()
     {
-        $puns = Pun::orderBy('likes', 'desc')->paginate(10);
+        $puns = Pun::select(array('users.username', 'puns.id', 'puns.title', 'puns.body', 'puns.likes'))
+            ->join('users', 'puns.user_id', '=', 'users.id')
+            ->orderBy('puns.likes', 'desc')
+            ->paginate(10);
+            
+
         return PunResource::collection($puns);
     }
 
     public function recent() {
-        $puns = Pun::orderBy('created_at', 'desc')->paginate(10);
+        $puns = Pun::select(array('users.username', 'puns.id', 'puns.title', 'puns.body', 'puns.likes'))
+            ->join('users', 'puns.user_id', '=', 'users.id')
+            ->orderBy('puns.created_at', 'desc')
+            ->paginate(10);
+
         return PunResource::collection($puns);
     }
 }

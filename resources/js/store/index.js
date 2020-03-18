@@ -262,12 +262,22 @@ export default new Vuex.Store({
         next_page_url: data.links.next,
         prev_page_url: data.links.prev
       };
+
+      for(let i = 0; i < state.home.length; i++) {
+        for(let j = 0; j < state.liked_puns.length; j++) {
+          if(state.home[i].id === state.liked_puns[j].id) {
+              state.home[i].liked = true;
+            }
+         }
+      }
     },
 
     likes: (state, data) => {
       state.home.find(e => {
         if(e.id === data.pun.id) {
           e.likes = data.pun.likes;
+          e.liked = true;
+          state.liked_puns.push(data.pun);
         }
       });
     },

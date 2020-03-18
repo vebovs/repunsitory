@@ -68,7 +68,7 @@ class User {
       return await axios.get(API_URL + 'user/liked', {
         withCredentials: true
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err.response.data.message));
     }
 }
 

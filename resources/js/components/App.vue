@@ -66,11 +66,13 @@ export default {
             'status',
             'username',
             'error',
-            'role'
+            'role',
+            'liked_puns',
+            'home'
         ])
     },
 
-    created() {
+    async created() {
         if(this.$route.query.queryURL) {
 
             this.$store.dispatch('verification', {
@@ -79,7 +81,11 @@ export default {
 
             this.toggle = true;
         }
-        this.$store.dispatch('refresh');
+
+        this.$store.dispatch('refresh')
+        .then(() => {
+            this.$store.dispatch('liked');
+        });
     },
 
     methods: {

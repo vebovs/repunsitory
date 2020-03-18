@@ -24,12 +24,18 @@
                 </ul>
             </nav>
             </div>
-            <div class="card card-body mb-2" v-for="pun in home" v-bind:key="pun.id">
-                <h3>{{ pun.title }}</h3>
-                <p>{{ pun.body }}</p>
-                <div class="text-right">
-                    <p>Likes: {{ pun.likes }}</p>
-                    <button v-on:click="like(pun.id)" type="button" class="btn btn-primary btn-success">Like</button>
+            <div class="card mt-2" v-for="pun in home" v-bind:key="pun.id">
+                <div class="card-header">
+                    Created by {{ pun.username }}
+                </div>
+                <div class="card card-body">
+                    <h3>{{ pun.title }}</h3>
+                    <p>{{ pun.body }}</p>
+                    <div class="text-right">
+                        <p>Likes: {{ pun.likes }}</p>
+                        <button v-if="!pun.liked" v-on:click="like(pun.id)" type="button" class="btn btn-primary btn-success">Like</button>
+                        <button v-if="pun.liked" v-on:click="like(pun.id)" type="button" class="btn btn-primary btn-success">Liked</button>
+                    </div>
                 </div>
             </div>
             <nav class="mt-3" aria-label="Page navigation example">
@@ -63,7 +69,9 @@ export default {
      },
 
     created() {
-        this.index();
+        setTimeout(() => {
+          this.index();  
+        }, 500);
     },
 
     computed: {
@@ -89,35 +97,17 @@ export default {
             if(!this.status) {
                 alert('You need to be logged in for this action');
             } else {
-                if(!this.liked_puns) {
-                    this.$store.dispatch('liked')
-                    .then(() => {
-                        let found = false;
-                        this.liked_puns.find(e => {
-                            if(e.id === id) {
-                                found = true;
-                            }
-                        });
-
-                        if(!found) {
-                            this.$store.dispatch('like', {
-                                id: id
-                            });
-                        }
-                    });
-                } else {
-                    let found = false;
-                    this.liked_puns.find(e => {
-                        if(e.id === id) {
-                            found = true;
-                        }
-                    });
-
-                    if(!found) {
-                        this.$store.dispatch('like', {
-                            id: id
-                        });
+                let found = false;
+                this.liked_puns.find(e => {
+                    if(e.id === id) {
+                        found = true;
                     }
+                });
+
+                if(!found) {
+                    this.$store.dispatch('like', {
+                        id: id
+                    });
                 }
             }
         }

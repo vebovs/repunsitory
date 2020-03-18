@@ -53,7 +53,7 @@ export default {
         })
         .then(() => {
           if(!this.error) {
-            this.$store.dispatch('liked');
+            this.$store.dispatch('liked')
             this.$router.push({ name: 'home' });
           }
         });

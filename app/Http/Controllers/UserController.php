@@ -15,7 +15,7 @@ class UserController extends Controller
     protected $user;
 
     /**
-     * PunController constructor.
+     * UserController constructor.
      */
     public function __construct(Request $request)
     {
@@ -30,23 +30,11 @@ class UserController extends Controller
             ], 400);
         }
 
-        $liked = Like::where('user_id', $this->user->id)->get();
-
-        $pun_ids = array();
-        foreach($liked as $like) {
-            array_push($pun_ids, $like->pun_id);
-        }
-
-        $puns = Pun::findMany($pun_ids);
-
-        $liked_puns = array();
-        foreach($puns as $pun) {
-            array_push($liked_puns, [
-                "id" => $pun->id,
-                "title" => $pun->title,
-                "body" => $pun->body
-            ]);
-        }
+        $liked_puns = Pun::select(array('likes.pun_id as id', 'puns.title', 'puns.body'))
+            ->join('likes', 'puns.id', '=', 'likes.pun_id')
+            ->where('likes.user_id', $this->user->id)
+            ->orderBy('likes.created_at', 'desc')
+            ->get();
 
         return response()->json([
             'success' => true,
