@@ -4,6 +4,7 @@ import store from '../store';
 const API_URL = process.env.MIX_API_URL;
 
 class Auth {
+    //User login
     async LOGIN(email, password) {
         return await axios.post(API_URL + 'login', {
             email: email,
@@ -13,10 +14,11 @@ class Auth {
             withCredentials: true
         })
         .catch(err => {
-            store.commit('error', err.response.data.message);
+            store.commit('error', err.response.data.message); //displays the error message for the user
         });
     }
 
+    //User registration
     async REGISTER(username, email, password) {
         return await axios.post(API_URL + 'register', {
             username: username,
@@ -32,6 +34,7 @@ class Auth {
         });
     }
 
+    //User logout
     async LOGOUT() {
         return await axios.get(API_URL + 'logout', {
             withCredentials: true
@@ -39,6 +42,7 @@ class Auth {
         .catch(err => console.log(err));
     }
 
+    //Fetch credentials on page refresh through cookie
     async REFRESH() {
         return await axios.get(API_URL + 'refresh', {
             withCredentials: true

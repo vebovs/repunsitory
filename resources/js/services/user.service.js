@@ -4,6 +4,7 @@ import store from '../store';
 const API_URL = process.env.MIX_API_URL;
 
 class User {
+    //Pun creation
     async CREATE(title, body) {
         return await axios.post(API_URL + 'pun', {
             title: title,
@@ -17,6 +18,7 @@ class User {
           });
     }
 
+    //Gets a specific users created puns
     async SHOW() {
         return await axios.get(API_URL + 'puns', {
             withCredentials: true
@@ -24,6 +26,7 @@ class User {
           .catch(err => console.log(err));
     }
 
+    //Allows user to delete one of their puns
     async REMOVE(id) {
       return await axios.delete(API_URL + 'pun/' + `${id}`, {
         withCredentials: true
@@ -33,6 +36,7 @@ class User {
       });
     }
 
+    //Allows user to update one of their puns
     async UPDATE(id, title, body) {
       return await axios.put(API_URL + 'pun/' + `${id}`, {
         title: title,
@@ -46,6 +50,7 @@ class User {
       });
     }
 
+    //Deletes a user's account
     async DELETE() {
       return await axios.delete(API_URL + 'user', {
         withCredentials: true
@@ -55,6 +60,7 @@ class User {
       });
     }
 
+    //Allows the user to like a pun
     async LIKE(id) {
       return await axios.get(API_URL + 'pun/like/' + `${id}`, {
         withCredentials: true
@@ -64,6 +70,7 @@ class User {
       });
     }
 
+    //Fecthes a user's previously liked puns
     async LIKED() {
       return await axios.get(API_URL + 'user/liked', {
         withCredentials: true

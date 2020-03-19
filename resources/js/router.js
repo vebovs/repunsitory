@@ -28,6 +28,7 @@ const router = new VueRouter({
         name: 'dashboard',
         component: Dashboard,
         beforeEnter: (to, from, next) => {
+            //Checks to see if user is authorized and fits the role
             if(store.state.token && store.state.role === 1) {
                 next();
             } else {

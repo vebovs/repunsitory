@@ -34,7 +34,7 @@
                     <div class="text-right">
                         <p>Likes: {{ pun.likes }}</p>
                         <button v-if="!pun.liked" v-on:click="like(pun.id)" type="button" class="btn btn-primary btn-success">Like</button>
-                        <button v-if="pun.liked" v-on:click="like(pun.id)" type="button" class="btn btn-primary btn-success">Liked</button>
+                        <button v-if="pun.liked" type="button" class="btn btn-primary btn-success">Liked</button>
                     </div>
                 </div>
             </div>

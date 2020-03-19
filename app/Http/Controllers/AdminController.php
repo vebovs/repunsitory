@@ -24,6 +24,7 @@ class AdminController extends Controller
         $this->admin = JWTAuth::parseToken()->authenticate();
     }
 
+    //Gets all users 
     public function index() {
         $users = User::all();
         return response()->json(
@@ -34,6 +35,7 @@ class AdminController extends Controller
             ], 200);
     }
 
+    //Bans a user
     public function banUser($id) {
         $user = User::find($id);
 
@@ -62,6 +64,7 @@ class AdminController extends Controller
         }
     }
 
+    //Deletes a user
     public function destroyUser($id) {
         $user = User::find($id);
 
@@ -85,6 +88,7 @@ class AdminController extends Controller
         }
     }
 
+    //Deletes a pun
     public function destroyPun($id) {
         $pun = Pun::find($id);
 

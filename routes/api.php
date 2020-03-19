@@ -20,7 +20,7 @@ Route::get('popular', 'PublicPunController@popular');
 //List recent puns
 Route::get('recent', 'PublicPunController@recent');
 
-// User login
+//User login
 Route::post('login', 'ApiController@login');
 
 //User registration
@@ -72,6 +72,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 
 });
 
-// Email Verification
+//Email Verification
 Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
 

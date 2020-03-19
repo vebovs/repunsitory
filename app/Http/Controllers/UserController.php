@@ -19,9 +19,10 @@ class UserController extends Controller
      */
     public function __construct(Request $request)
     {
-        $this->user = JWTAuth::parseToken()->authenticate();
+        $this->user = JWTAuth::parseToken()->authenticate(); //Check if user is authenticated before performing any actions
     }
 
+    //Gets all of the users previosly liked puns
     public function liked() {
         if(!$this->user) {
             return response()->json([
@@ -43,6 +44,7 @@ class UserController extends Controller
         
     }
 
+    //Allowes user to delete itself. Will created cascading effect that also removes all their puns.
     public function destroy() {
         if(!$this->user) {
             return response()->json([

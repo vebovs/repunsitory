@@ -15,21 +15,18 @@ use App\Banned;
 class APIController extends Controller
 {
     /**
-     * @var bool
-     */
-    public $loginAfterSignUp = false;
-
-    /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function login(Request $request)
     {
+        //Validate input requirements
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string'
         ]);
 
+        //Validation failed response
         if($validator->fails()) {
             return response()->json([
                 'success' => false,
@@ -41,6 +38,7 @@ class APIController extends Controller
         $input = $request->only('email', 'password');
         $token = null;
 
+        //Attempt authentication
         if (!$token = JWTAuth::attempt($input)) {
             return response()->json([
                 'success' => false,
@@ -48,21 +46,24 @@ class APIController extends Controller
             ], 401);
         }
 
+        //Find user by credentials
         $user = User::find(Auth::user()->id);
 
-        /*if(!$user->email_verified_at) {
+        //Only allow login if user has verified their email
+        if(!$user->email_verified_at) {
             return response()->json([
                 'success' => false,
                 'message' => 'E-mail unverified'
             ], 401);
-        }*/
+        }
 
+        //Validation, authentication and verification success
         return response()->json([
             'success' => true,
             'token' => $token,
             'username' => $user->username,
             'role' => $user->role
-        ])->cookie('token', $token);
+        ])->cookie('token', $token); //Sets token in cookie for auth based api access
     }
 
     /**
@@ -73,6 +74,9 @@ class APIController extends Controller
     public function logout(Request $request)
     {
         try {
+
+            //Remove user session and cookie token
+
             JWTAuth::invalidate($request->cookie('token'));
 
             $cookie = Cookie::forget('token');
@@ -92,7 +96,7 @@ class APIController extends Controller
 
     public function register(Request $request)
     {   
-        
+        //Validate input requirements
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|unique:users|min:3',
             'email' => 'required|email|unique:users',
@@ -106,6 +110,7 @@ class APIController extends Controller
             ], 400);
         }
 
+        //Checks if given email has been blacklisted
         if(Banned::where('email', $request->email)->count()) {
             return response()->json([
                 'success' => false,
@@ -113,17 +118,13 @@ class APIController extends Controller
             ], 400);
         }
 
-        
+        //Creates new user and stores it in database 
         $user = new User();
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        //$user->sendEmailVerificationNotification();
-
-        if ($this->loginAfterSignUp) {
-            return $this->login($request);
-        }
+        $user->sendEmailVerificationNotification(); //Send verification email
 
         return response()->json([
             'success'   =>  true
@@ -131,6 +132,9 @@ class APIController extends Controller
     }
 
     public function refresh(Request $request) {
+
+        //Refresh user credentials after page refresh
+
         $user = JWTAuth::toUser($request->cookie('token'));
 
         if(!$user) {

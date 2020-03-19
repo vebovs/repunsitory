@@ -145,6 +145,7 @@ export default {
           this.state = false;
           this.title = '';
           this.body = '';
+          this.overview = true, this.create = false, this.settings = false, this.liked = false;
         });
       }
     },

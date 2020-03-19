@@ -21,9 +21,10 @@ class PunController extends Controller
      */
     public function __construct(Request $request)
     {
-        $this->user = JWTAuth::parseToken()->authenticate();
+        $this->user = JWTAuth::parseToken()->authenticate(); //Check if user is authenticated before performing any actions
     }
 
+    //Gets all puns created by user
     public function index() {
         $puns = $this->user->puns()->orderBy('created_at', 'desc')->get(['id', 'title', 'body', 'likes'])->toArray();
 
@@ -164,8 +165,9 @@ class PunController extends Controller
         }
     }
 
+    //Allowes users to like puns
     public function like($id) {
-        $like = $this->user->likes()->where('pun_id', $id);
+        $like = $this->user->likes()->where('pun_id', $id); //Checks if user already has liked this pun
 
         if($like->count()) {
             return response()->json([
@@ -175,11 +177,11 @@ class PunController extends Controller
         }
 
         $pun = Pun::find($id);
-        $updated = $pun->increment('likes');
+        $updated = $pun->increment('likes'); //increments the puns likes count by 1
 
         $like = new Like();
         $like->pun_id = $id;
-        $this->user->likes()->save($like);
+        $this->user->likes()->save($like); //Adds the pun to the users liked puns
 
         if ($updated) {
             return response()->json([

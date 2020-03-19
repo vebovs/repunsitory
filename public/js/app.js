@@ -2571,6 +2571,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this.state = false;
           _this.title = '';
           _this.body = '';
+          _this.overview = true, _this.create = false, _this.settings = false, _this.liked = false;
         });
       }
     },
@@ -4185,12 +4186,7 @@ var render = function() {
                         "button",
                         {
                           staticClass: "btn btn-primary btn-success",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              return _vm.like(pun.id)
-                            }
-                          }
+                          attrs: { type: "button" }
                         },
                         [_vm._v("Liked")]
                       )
@@ -4611,21 +4607,17 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "container" }, [
-      _vm._m(0),
-      _vm._v(" "),
       !_vm.toggle
         ? _c(
             "div",
             _vm._l(_vm.users, function(user) {
               return _c(
                 "div",
-                { key: user.id, staticClass: "card card-body m-4" },
+                { key: user.id, staticClass: "card card-body mt-2" },
                 [
                   _c("h4", [_vm._v("Username: " + _vm._s(user.username))]),
                   _vm._v(" "),
                   _c("h4", [_vm._v("E-mail: " + _vm._s(user.email))]),
-                  _vm._v(" "),
-                  _c("h4", [_vm._v("User ID: " + _vm._s(user.id))]),
                   _vm._v(" "),
                   _c(
                     "button",
@@ -4665,15 +4657,19 @@ var render = function() {
         ? _c(
             "div",
             _vm._l(_vm.home, function(pun) {
-              return _c(
-                "div",
-                { key: pun.id, staticClass: "card card-body m-4" },
-                [
+              return _c("div", { key: pun.id, staticClass: "card mt-2" }, [
+                _c("div", { staticClass: "card-header" }, [
+                  _vm._v(
+                    "\n                Created by " +
+                      _vm._s(pun.username) +
+                      "\n            "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "card card-body" }, [
                   _c("h3", [_vm._v(_vm._s(pun.title))]),
                   _vm._v(" "),
                   _c("p", [_vm._v(_vm._s(pun.body))]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v("User ID: " + _vm._s(pun.user_id))]),
                   _vm._v(" "),
                   _c(
                     "button",
@@ -4688,8 +4684,8 @@ var render = function() {
                     },
                     [_vm._v("Delete")]
                   )
-                ]
-              )
+                ])
+              ])
             }),
             0
           )
@@ -4697,16 +4693,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center mt-2" }, [
-      _c("h3", [_vm._v("Administration")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -21781,6 +21768,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
     name: 'dashboard',
     component: _components_user_Dashboard_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     beforeEnter: function beforeEnter(to, from, next) {
+      //Checks to see if user is authorized and fits the role
       if (_store__WEBPACK_IMPORTED_MODULE_1__["default"].state.token && _store__WEBPACK_IMPORTED_MODULE_1__["default"].state.role === 1) {
         next();
       } else {
@@ -21845,6 +21833,7 @@ function () {
 
   _createClass(Admin, [{
     key: "USERS",
+    //Gets all the users
     value: function () {
       var _USERS = _asyncToGenerator(
       /*#__PURE__*/
@@ -21876,7 +21865,8 @@ function () {
       }
 
       return USERS;
-    }()
+    }() //Allows the admin to delete any user
+
   }, {
     key: "DELETE_USER",
     value: function () {
@@ -21910,7 +21900,8 @@ function () {
       }
 
       return DELETE_USER;
-    }()
+    }() //Allows the admin to delete any pun
+
   }, {
     key: "DELETE_PUN",
     value: function () {
@@ -21944,7 +21935,8 @@ function () {
       }
 
       return DELETE_PUN;
-    }()
+    }() //Allows the admin to ban any user
+
   }, {
     key: "BAN_USER",
     value: function () {
@@ -22027,6 +22019,7 @@ function () {
 
   _createClass(Auth, [{
     key: "LOGIN",
+    //User login
     value: function () {
       var _LOGIN = _asyncToGenerator(
       /*#__PURE__*/
@@ -22042,7 +22035,7 @@ function () {
                 }, {
                   withCredentials: true
                 })["catch"](function (err) {
-                  _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
+                  _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message); //displays the error message for the user
                 });
 
               case 2:
@@ -22061,7 +22054,8 @@ function () {
       }
 
       return LOGIN;
-    }()
+    }() //User registration
+
   }, {
     key: "REGISTER",
     value: function () {
@@ -22100,7 +22094,8 @@ function () {
       }
 
       return REGISTER;
-    }()
+    }() //User logout
+
   }, {
     key: "LOGOUT",
     value: function () {
@@ -22134,7 +22129,8 @@ function () {
       }
 
       return LOGOUT;
-    }()
+    }() //Fetch credentials on page refresh through cookie
+
   }, {
     key: "REFRESH",
     value: function () {
@@ -22215,6 +22211,7 @@ function () {
 
   _createClass(Public, [{
     key: "HOME",
+    //Gets either most popular puns or most recent puns. Is also used for pagination.
     value: function () {
       var _HOME = _asyncToGenerator(
       /*#__PURE__*/
@@ -22246,7 +22243,8 @@ function () {
       }
 
       return HOME;
-    }()
+    }() //Sends the email verification url parameters to the backend
+
   }, {
     key: "VERIFICATION",
     value: function () {
@@ -22329,6 +22327,7 @@ function () {
 
   _createClass(User, [{
     key: "CREATE",
+    //Pun creation
     value: function () {
       var _CREATE = _asyncToGenerator(
       /*#__PURE__*/
@@ -22363,7 +22362,8 @@ function () {
       }
 
       return CREATE;
-    }()
+    }() //Gets a specific users created puns
+
   }, {
     key: "SHOW",
     value: function () {
@@ -22397,7 +22397,8 @@ function () {
       }
 
       return SHOW;
-    }()
+    }() //Allows user to delete one of their puns
+
   }, {
     key: "REMOVE",
     value: function () {
@@ -22431,7 +22432,8 @@ function () {
       }
 
       return REMOVE;
-    }()
+    }() //Allows user to update one of their puns
+
   }, {
     key: "UPDATE",
     value: function () {
@@ -22468,7 +22470,8 @@ function () {
       }
 
       return UPDATE;
-    }()
+    }() //Deletes a user's account
+
   }, {
     key: "DELETE",
     value: function () {
@@ -22502,7 +22505,8 @@ function () {
       }
 
       return DELETE;
-    }()
+    }() //Allows the user to like a pun
+
   }, {
     key: "LIKE",
     value: function () {
@@ -22536,7 +22540,8 @@ function () {
       }
 
       return LIKE;
-    }()
+    }() //Fecthes a user's previously liked puns
+
   }, {
     key: "LIKED",
     value: function () {
@@ -22616,17 +22621,26 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
     status: false,
+    //Checks to see if anyone is logged in
     username: '',
     token: '',
+    //JWT
     role: '',
+    //admin or regular user
     puns: [],
+    //User's previously created puns
     home: [],
+    //All puns to be displayed on the front page
     pagination: {},
     users: [],
+    //All users to only be displayed for the admins
     error: '',
-    liked_puns: ''
+    //Error message in case anything goes wrong
+    liked_puns: '' //User's liked puns
+
   },
   actions: {
+    //User login
     login: function login(_ref, data) {
       var commit = _ref.commit;
       return _asyncToGenerator(
@@ -22656,6 +22670,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee);
       }))();
     },
+    //User registration
     register: function register(_ref2, data) {
       var commit = _ref2.commit;
       return _asyncToGenerator(
@@ -22685,6 +22700,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee2);
       }))();
     },
+    //User logout
     logout: function logout(_ref3) {
       var commit = _ref3.commit;
       return _asyncToGenerator(
@@ -22714,6 +22730,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee3);
       }))();
     },
+    //Fetch credentials upon page refresh
     refresh: function refresh(_ref4) {
       var commit = _ref4.commit;
       return _asyncToGenerator(
@@ -22742,6 +22759,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee4);
       }))();
     },
+    //Allows user to create a pun
     create: function create(_ref5, data) {
       var commit = _ref5.commit;
       return _asyncToGenerator(
@@ -22770,6 +22788,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee5);
       }))();
     },
+    //Fetches all of the user's previously created puns
     show: function show(_ref6) {
       var commit = _ref6.commit;
       return _asyncToGenerator(
@@ -22798,6 +22817,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee6);
       }))();
     },
+    //Allows user's to delete one of their puns
     remove: function remove(_ref7, data) {
       var commit = _ref7.commit;
       return _asyncToGenerator(
@@ -22826,6 +22846,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee7);
       }))();
     },
+    //Allows user to update a pun
     update: function update(_ref8, data) {
       var commit = _ref8.commit;
       return _asyncToGenerator(
@@ -22854,6 +22875,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee8);
       }))();
     },
+    //Allows a user to delete themselves
     "delete": function _delete(_ref9) {
       var commit = _ref9.commit;
       return _asyncToGenerator(
@@ -22882,6 +22904,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee9);
       }))();
     },
+    //Allows a user to like a pun
     like: function like(_ref10, data) {
       var commit = _ref10.commit;
       return _asyncToGenerator(
@@ -22910,6 +22933,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee10);
       }))();
     },
+    //Gets a user's previously liked puns
     liked: function liked(_ref11) {
       var commit = _ref11.commit;
       return _asyncToGenerator(
@@ -22938,6 +22962,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee11);
       }))();
     },
+    //Fetches all the puns to be displayed on the front page
     home: function home(_ref12, data) {
       var commit = _ref12.commit;
       return _asyncToGenerator(
@@ -22966,6 +22991,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee12);
       }))();
     },
+    //Gets all the user to be displayed on the admin dashboard
     users: function users(_ref13) {
       var commit = _ref13.commit;
       return _asyncToGenerator(
@@ -22994,6 +23020,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee13);
       }))();
     },
+    //Allows an admin to delete a user
     delete_user: function delete_user(_ref14, data) {
       var commit = _ref14.commit;
       return _asyncToGenerator(
@@ -23022,6 +23049,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee14);
       }))();
     },
+    //Allows an admin to ban a user
     ban_user: function ban_user(_ref15, data) {
       var commit = _ref15.commit;
       return _asyncToGenerator(
@@ -23050,6 +23078,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee15);
       }))();
     },
+    //Allows an admin to delete any pun
     delete_pun: function delete_pun(_ref16, data) {
       var commit = _ref16.commit;
       return _asyncToGenerator(
@@ -23078,6 +23107,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee16);
       }))();
     },
+    //Email verification
     verification: function verification(_ref17, data) {
       var commit = _ref17.commit;
       return _asyncToGenerator(
@@ -23107,21 +23137,25 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     }
   },
   mutations: {
+    //Sets the user credentials
     set: function set(state, data) {
       state.status = data.success;
       state.username = data.username;
       state.token = data.token;
       state.role = data.role;
     },
+    //Removes the user credentials
     reset: function reset(state) {
       state.status = false;
       state.username = '';
       state.token = '';
       state.role = '';
     },
+    //Sets the user's puns
     puns: function puns(state, data) {
       state.puns = data;
     },
+    //Adds the newly created pun to be displayed immediately upon creation
     create: function create(state, data) {
       state.puns.unshift({
         id: data.pun.id,
@@ -23129,11 +23163,13 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         body: data.pun.body
       });
     },
+    //Deletes the pun immediately 
     remove: function remove(state, data) {
       state.puns = state.puns.filter(function (e) {
         return e.id != data.id;
       });
     },
+    //Updates the pun
     update: function update(state, data) {
       state.puns.find(function (e) {
         if (e.id === data.pun.id) {
@@ -23142,6 +23178,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }
       });
     },
+    //Sets all puns to be displayed on the front page
     "public": function _public(state, data) {
       state.home = data.data;
       state.pagination = {
@@ -23149,7 +23186,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         last_page: data.meta.last_page,
         next_page_url: data.links.next,
         prev_page_url: data.links.prev
-      };
+      }; //Checks to see if there are any puns the user has previosly liked an sets them as liked
+      //To be used to generate the correct type of like button (depending on if the user already has liked the pun)
 
       for (var i = 0; i < state.home.length; i++) {
         for (var j = 0; j < state.liked_puns.length; j++) {
@@ -23159,6 +23197,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }
       }
     },
+    //Likes a pun
     likes: function likes(state, data) {
       state.home.find(function (e) {
         if (e.id === data.pun.id) {
@@ -23168,22 +23207,27 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }
       });
     },
+    //Sets all liked puns
     liked: function liked(state, data) {
       state.liked_puns = data.liked_puns;
     },
+    //Sets all the users
     admin: function admin(state, data) {
       state.users = data.users;
     },
+    //An admin deletes a user
     remove_user: function remove_user(state, data) {
       state.users = state.users.filter(function (e) {
         return e.id != data.id;
       });
     },
+    //An admin deletes a pun
     remove_pun: function remove_pun(state, data) {
       state.home = state.home.filter(function (e) {
         return e.id != data.id;
       });
     },
+    //Error variable to the displayed
     error: function error(state, data) {
       state.error = data;
     }
