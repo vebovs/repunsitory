@@ -15,6 +15,7 @@ class User {
           })
           .catch(err => {
             store.commit('error', err.response.data.message);
+            Promise.reject(err);
           });
     }
 
@@ -23,7 +24,7 @@ class User {
         return await axios.get(API_URL + 'puns', {
             withCredentials: true
           })
-          .catch(err => console.log(err));
+          .catch(err => Promise.reject(err));
     }
 
     //Allows user to delete one of their puns
@@ -33,6 +34,7 @@ class User {
       })
       .catch(err => {
         store.commit('error', err.response.data.message);
+        Promise.reject(err);
       });
     }
 
@@ -47,6 +49,7 @@ class User {
       })
       .catch(err => {
         store.commit('error', err.response.data.message);
+        Promise.reject(err);
       });
     }
 
@@ -57,6 +60,7 @@ class User {
       })
       .catch(err => {
         store.commit('error', err.response.data.message);
+        Promise.reject(err);
       });
     }
 
@@ -67,6 +71,7 @@ class User {
       })
       .catch(err => {
         store.commit('error', err.response.data.message);
+        Promise.reject(err);
       });
     }
 
@@ -75,7 +80,7 @@ class User {
       return await axios.get(API_URL + 'user/liked', {
         withCredentials: true
       })
-      .catch(err => console.log(err.response.data.message));
+      .catch(err => Promise.reject(err));
     }
 }
 

@@ -1,15 +1,15 @@
 <template>
 <div>
-    <div>
-        <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <div style="background-color: #343a40">
+        <nav class="navbar navbar-expand navbar-dark bg-dark container">
             <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a v-on:click="toggle = true" class="nav-link" href="#">Popular puns</a>
-                    </li>
-                    <li class="nav-item">
-                        <a v-on:click="toggle = false" class="nav-link" href="#">Recent puns</a>
-                    </li>
-                </ul>
+                <li class="nav-item">
+                    <a v-on:click="toggle = true" class="nav-link pl-0" href="#">Popular puns</a>
+                </li>
+                <li class="nav-item">
+                    <a v-on:click="toggle = false" class="nav-link" href="#">Recent puns</a>
+                </li>
+            </ul>
         </nav>
     </div>
     <div class="container">

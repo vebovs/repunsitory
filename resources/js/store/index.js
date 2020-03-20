@@ -234,10 +234,10 @@ export default new Vuex.Store({
   mutations: {
     //Sets the user credentials
     set: (state, data) => {
-        state.status = data.success;
-        state.username = data.username;
-        state.token = data.token;
-        state.role = data.role;
+      state.status = data.success;
+      state.username = data.username;
+      state.token = data.token;
+      state.role = data.role;
     },
 
     //Removes the user credentials

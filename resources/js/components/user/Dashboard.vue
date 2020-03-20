@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div>
-      <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <div style="background-color: #343a40">
+      <nav class="navbar navbar-expand navbar-dark bg-dark container">
             <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a v-on:click="overview = true, create = false, settings = false, liked = false" class="nav-link" href="#">Overview</a>
+                        <a v-on:click="overview = true, create = false, settings = false, liked = false" class="nav-link pl-0" href="#">Overview</a>
                     </li>
                     <li class="nav-item">
                         <a v-on:click="overview = false, create = false, settings = false, liked = true" class="nav-link" href="#">Liked</a>

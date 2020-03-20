@@ -8,7 +8,7 @@ class Public {
         return await axios.get(page_url, {
             withCredentials: true
         })  
-        .catch(err => console.log(err));
+        .catch(err => Promise.reject(err));
     }
 
     //Sends the email verification url parameters to the backend
@@ -16,7 +16,7 @@ class Public {
         return await axios.get(url, {
             withCredentials: true
         })
-        .catch(err => console.log(err));
+        .catch(err => Promise.reject(err));
     }
 }
 

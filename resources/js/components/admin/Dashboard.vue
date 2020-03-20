@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div>
-            <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <div style="background-color: #343a40">
+            <nav class="navbar navbar-expand navbar-dark bg-dark container">
                  <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a v-on:click="toggle = false" class="nav-link" href="#">Users</a>
+                        <a v-on:click="toggle = false" class="nav-link pl-0" href="#">Users</a>
                     </li>
                     <li class="nav-item">
                         <a v-on:click="toggle = true" class="nav-link" href="#">Puns</a>

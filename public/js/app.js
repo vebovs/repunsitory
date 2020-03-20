@@ -3830,7 +3830,9 @@ var render = function() {
     !_vm.toggle
       ? _c(
           "nav",
-          { staticClass: "navbar navbar-expand navbar-light bg-white" },
+          {
+            staticClass: "navbar navbar-expand navbar-light bg-white container"
+          },
           [
             _c(
               "router-link",
@@ -3971,7 +3973,7 @@ var render = function() {
     _vm.toggle
       ? _c("div", [
           _c("nav", {
-            staticClass: "navbar navbar-expand navbar-dark bg-dark"
+            staticClass: "navbar navbar-expand navbar-dark bg-dark mt-2"
           }),
           _vm._v(" "),
           _c("div", { staticClass: "container" }, [
@@ -4032,42 +4034,46 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", [
-      _c("nav", { staticClass: "navbar navbar-expand navbar-dark bg-dark" }, [
-        _c("ul", { staticClass: "navbar-nav" }, [
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    _vm.toggle = true
+    _c("div", { staticStyle: { "background-color": "#343a40" } }, [
+      _c(
+        "nav",
+        { staticClass: "navbar navbar-expand navbar-dark bg-dark container" },
+        [
+          _c("ul", { staticClass: "navbar-nav" }, [
+            _c("li", { staticClass: "nav-item" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link pl-0",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.toggle = true
+                    }
                   }
-                }
-              },
-              [_vm._v("Popular puns")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    _vm.toggle = false
+                },
+                [_vm._v("Popular puns")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "nav-item" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.toggle = false
+                    }
                   }
-                }
-              },
-              [_vm._v("Recent puns")]
-            )
+                },
+                [_vm._v("Recent puns")]
+              )
+            ])
           ])
-        ])
-      ])
+        ]
+      )
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "container" }, [
@@ -4568,42 +4574,46 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", [
-      _c("nav", { staticClass: "navbar navbar-expand navbar-dark bg-dark" }, [
-        _c("ul", { staticClass: "navbar-nav" }, [
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    _vm.toggle = false
+    _c("div", { staticStyle: { "background-color": "#343a40" } }, [
+      _c(
+        "nav",
+        { staticClass: "navbar navbar-expand navbar-dark bg-dark container" },
+        [
+          _c("ul", { staticClass: "navbar-nav" }, [
+            _c("li", { staticClass: "nav-item" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link pl-0",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.toggle = false
+                    }
                   }
-                }
-              },
-              [_vm._v("Users")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    _vm.toggle = true
+                },
+                [_vm._v("Users")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "nav-item" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.toggle = true
+                    }
                   }
-                }
-              },
-              [_vm._v("Puns")]
-            )
+                },
+                [_vm._v("Puns")]
+              )
+            ])
           ])
-        ])
-      ])
+        ]
+      )
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "container" }, [
@@ -4716,86 +4726,90 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", [
-      _c("nav", { staticClass: "navbar navbar-expand navbar-dark bg-dark" }, [
-        _c("ul", { staticClass: "navbar-nav" }, [
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    ;(_vm.overview = true),
-                      (_vm.create = false),
-                      (_vm.settings = false),
-                      (_vm.liked = false)
+    _c("div", { staticStyle: { "background-color": "#343a40" } }, [
+      _c(
+        "nav",
+        { staticClass: "navbar navbar-expand navbar-dark bg-dark container" },
+        [
+          _c("ul", { staticClass: "navbar-nav" }, [
+            _c("li", { staticClass: "nav-item" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link pl-0",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      ;(_vm.overview = true),
+                        (_vm.create = false),
+                        (_vm.settings = false),
+                        (_vm.liked = false)
+                    }
                   }
-                }
-              },
-              [_vm._v("Overview")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    ;(_vm.overview = false),
-                      (_vm.create = false),
-                      (_vm.settings = false),
-                      (_vm.liked = true)
+                },
+                [_vm._v("Overview")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "nav-item" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      ;(_vm.overview = false),
+                        (_vm.create = false),
+                        (_vm.settings = false),
+                        (_vm.liked = true)
+                    }
                   }
-                }
-              },
-              [_vm._v("Liked")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    ;(_vm.overview = false),
-                      (_vm.create = true),
-                      (_vm.settings = false),
-                      (_vm.liked = false)
+                },
+                [_vm._v("Liked")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "nav-item" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      ;(_vm.overview = false),
+                        (_vm.create = true),
+                        (_vm.settings = false),
+                        (_vm.liked = false)
+                    }
                   }
-                }
-              },
-              [_vm._v("Create")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    ;(_vm.overview = false),
-                      (_vm.create = false),
-                      (_vm.settings = true),
-                      (_vm.liked = false)
+                },
+                [_vm._v("Create")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "nav-item" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      ;(_vm.overview = false),
+                        (_vm.create = false),
+                        (_vm.settings = true),
+                        (_vm.liked = false)
+                    }
                   }
-                }
-              },
-              [_vm._v("Settings")]
-            )
+                },
+                [_vm._v("Settings")]
+              )
+            ])
           ])
-        ])
-      ])
+        ]
+      )
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "container" }, [
@@ -21846,7 +21860,8 @@ function () {
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(API_URL + 'admin/users', {
                   withCredentials: true
                 })["catch"](function (err) {
-                  return console.log(err);
+                  _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
+                  Promise.reject(err);
                 });
 
               case 2:
@@ -21882,6 +21897,7 @@ function () {
                   withCredentials: true
                 })["catch"](function (err) {
                   _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
+                  Promise.reject(err);
                 });
 
               case 2:
@@ -21917,6 +21933,7 @@ function () {
                   withCredentials: true
                 })["catch"](function (err) {
                   _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
+                  Promise.reject(err);
                 });
 
               case 2:
@@ -21952,6 +21969,7 @@ function () {
                   withCredentials: true
                 })["catch"](function (err) {
                   _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
+                  Promise.reject(err);
                 });
 
               case 2:
@@ -22036,6 +22054,8 @@ function () {
                   withCredentials: true
                 })["catch"](function (err) {
                   _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message); //displays the error message for the user
+
+                  Promise.reject(err);
                 });
 
               case 2:
@@ -22074,8 +22094,8 @@ function () {
                 }, {
                   withCredentials: true
                 })["catch"](function (err) {
-                  console.log(err.response.data.message);
                   _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
+                  Promise.reject(err);
                 });
 
               case 2:
@@ -22110,7 +22130,7 @@ function () {
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(API_URL + 'logout', {
                   withCredentials: true
                 })["catch"](function (err) {
-                  return console.log(err);
+                  return Promise.reject(err);
                 });
 
               case 2:
@@ -22145,7 +22165,7 @@ function () {
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(API_URL + 'refresh', {
                   withCredentials: true
                 })["catch"](function (err) {
-                  Promise.reject(err);
+                  return Promise.reject(err);
                 });
 
               case 2:
@@ -22224,7 +22244,7 @@ function () {
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(page_url, {
                   withCredentials: true
                 })["catch"](function (err) {
-                  return console.log(err);
+                  return Promise.reject(err);
                 });
 
               case 2:
@@ -22259,7 +22279,7 @@ function () {
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url, {
                   withCredentials: true
                 })["catch"](function (err) {
-                  return console.log(err);
+                  return Promise.reject(err);
                 });
 
               case 2:
@@ -22344,6 +22364,7 @@ function () {
                   withCredentials: true
                 })["catch"](function (err) {
                   _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
+                  Promise.reject(err);
                 });
 
               case 2:
@@ -22378,7 +22399,7 @@ function () {
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(API_URL + 'puns', {
                   withCredentials: true
                 })["catch"](function (err) {
-                  return console.log(err);
+                  return Promise.reject(err);
                 });
 
               case 2:
@@ -22414,6 +22435,7 @@ function () {
                   withCredentials: true
                 })["catch"](function (err) {
                   _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
+                  Promise.reject(err);
                 });
 
               case 2:
@@ -22452,6 +22474,7 @@ function () {
                   withCredentials: true
                 })["catch"](function (err) {
                   _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
+                  Promise.reject(err);
                 });
 
               case 2:
@@ -22487,6 +22510,7 @@ function () {
                   withCredentials: true
                 })["catch"](function (err) {
                   _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
+                  Promise.reject(err);
                 });
 
               case 2:
@@ -22522,6 +22546,7 @@ function () {
                   withCredentials: true
                 })["catch"](function (err) {
                   _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit('error', err.response.data.message);
+                  Promise.reject(err);
                 });
 
               case 2:
@@ -22556,7 +22581,7 @@ function () {
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(API_URL + 'user/liked', {
                   withCredentials: true
                 })["catch"](function (err) {
-                  return console.log(err.response.data.message);
+                  return Promise.reject(err);
                 });
 
               case 2:

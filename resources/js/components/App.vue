@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav v-if="!toggle" class="navbar navbar-expand navbar-light bg-white">
+        <nav v-if="!toggle" class="navbar navbar-expand navbar-light bg-white container">
             <router-link class="navbar-brand" :to="{ name : 'home' }">Repunsitory</router-link>
             <div v-if="!status" class="navbar-collapse">
                 <ul class="nav navbar-nav ml-auto">
@@ -31,7 +31,7 @@
             </button>
         </div>
         <div v-if="toggle">
-            <nav class="navbar navbar-expand navbar-dark bg-dark"></nav>
+            <nav class="navbar navbar-expand navbar-dark bg-dark mt-2"></nav>
                 <div class="container">
                     <div class="card">
                         <div class="card-header">

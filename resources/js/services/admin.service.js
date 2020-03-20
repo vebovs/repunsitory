@@ -9,7 +9,10 @@ class Admin {
         return await axios.get(API_URL + 'admin/users', {
             withCredentials: true
         })  
-        .catch(err => console.log(err));
+        .catch(err => {
+            store.commit('error', err.response.data.message);
+            Promise.reject(err);
+        });
     }
 
     //Allows the admin to delete any user
@@ -19,6 +22,7 @@ class Admin {
         })
         .catch(err => {
             store.commit('error', err.response.data.message);
+            Promise.reject(err);
         });
     }
 
@@ -29,6 +33,7 @@ class Admin {
         })
         .catch(err => {
             store.commit('error', err.response.data.message);
+            Promise.reject(err);
         });
     }
 
@@ -39,6 +44,7 @@ class Admin {
         })
         .catch(err => {
             store.commit('error', err.response.data.message);
+            Promise.reject(err);
         });
     }
 }

@@ -15,6 +15,7 @@ class Auth {
         })
         .catch(err => {
             store.commit('error', err.response.data.message); //displays the error message for the user
+            Promise.reject(err);
         });
     }
 
@@ -29,8 +30,8 @@ class Auth {
             withCredentials: true
         })
         .catch(err => {
-            console.log(err.response.data.message);
             store.commit('error', err.response.data.message);
+            Promise.reject(err);
         });
     }
 
@@ -39,7 +40,7 @@ class Auth {
         return await axios.get(API_URL + 'logout', {
             withCredentials: true
         })
-        .catch(err => console.log(err));
+        .catch(err => Promise.reject(err));
     }
 
     //Fetch credentials on page refresh through cookie
@@ -47,9 +48,7 @@ class Auth {
         return await axios.get(API_URL + 'refresh', {
             withCredentials: true
         })
-        .catch(err => {
-            Promise.reject(err);
-        });
+        .catch(err => Promise.reject(err));
     }
 }
 
