@@ -22,7 +22,16 @@
               <label for="password">Password</label>
               <input v-model="password" type="password" class="form-control">
           </div>
-          <button type="submit" class="btn btn-primary">Register</button>
+          <div>
+            <div v-if="toggle" class="float-left">
+              <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+            <div v-if="!toggle" class="float-left">
+              <button class="btn btn-primary" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     </div>
@@ -38,7 +47,8 @@ export default {
     return {
       username: '',
       email: '',
-      password: ''
+      password: '',
+      toggle: true
     };
   },
 
@@ -51,6 +61,7 @@ export default {
   methods: {
     register() {
       this.$store.commit('error', '');
+      this.toggle = false;
       if(this.username && this.email && this.password) {
         this.$store.dispatch('register', {
           username: this.username,
@@ -60,6 +71,8 @@ export default {
         .then(() => {
           if(!this.error) {
             this.$router.push({ name: 'login' });
+          } else {
+            this.toggle = true;
           }
         });
       }

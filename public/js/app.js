@@ -2293,13 +2293,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       username: '',
       email: '',
-      password: ''
+      password: '',
+      toggle: true
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['error'])),
@@ -2308,6 +2318,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       this.$store.commit('error', '');
+      this.toggle = false;
 
       if (this.username && this.email && this.password) {
         this.$store.dispatch('register', {
@@ -2319,6 +2330,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             _this.$router.push({
               name: 'login'
             });
+          } else {
+            _this.toggle = true;
           }
         });
       }
@@ -4531,11 +4544,24 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-                [_vm._v("Register")]
-              )
+              _c("div", [
+                _vm.toggle
+                  ? _c("div", { staticClass: "float-left" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { type: "submit" }
+                        },
+                        [_vm._v("Register")]
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                !_vm.toggle
+                  ? _c("div", { staticClass: "float-left" }, [_vm._m(1)])
+                  : _vm._e()
+              ])
             ]
           )
         ])
@@ -4551,6 +4577,24 @@ var staticRenderFns = [
     return _c("div", [
       _c("nav", { staticClass: "navbar navbar-expand navbar-dark bg-dark" })
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-primary",
+        attrs: { type: "button", disabled: "" }
+      },
+      [
+        _c("span", {
+          staticClass: "spinner-border spinner-border-sm",
+          attrs: { role: "status", "aria-hidden": "true" }
+        })
+      ]
+    )
   }
 ]
 render._withStripped = true
