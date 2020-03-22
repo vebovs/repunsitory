@@ -82,6 +82,7 @@ export default {
             this.toggle = true;
         }
 
+        //Check for user session
         this.$store.dispatch('refresh')
         .then(() => {
             this.$store.dispatch('liked');
