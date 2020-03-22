@@ -76,9 +76,13 @@ export default new Vuex.Store({
     },
 
     //Allows user to create a pun
-    async create({ commit }, data) {
+    async create({ commit, dispatch }, data) {
       return await UserService.CREATE(data.title, data.body)
       .then(response => {
+        //Reset pagination upon pun creation
+        dispatch('home', {
+          page_url: '/api/popular'
+        });
         commit('create', response.data);
         return Promise.resolve();
       })
@@ -136,7 +140,7 @@ export default new Vuex.Store({
     },
 
     //Allows a user to like a pun
-    async like({ commit }, data) {
+    async like({ commit, dispatch }, data) {
       return await UserService.LIKE(data.id)
       .then(response => {
         commit('likes', response.data);

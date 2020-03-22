@@ -18,6 +18,7 @@ class PublicPunController extends Controller
         $puns = Pun::select(array('users.username', 'puns.id', 'puns.title', 'puns.body', 'puns.likes'))
             ->join('users', 'puns.user_id', '=', 'users.id')
             ->orderBy('puns.likes', 'desc')
+            ->orderBy('puns.created_at', 'asc')
             ->paginate(10);
             
 

@@ -2155,7 +2155,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         if (!found) {
           this.$store.dispatch('like', {
-            id: id
+            id: id,
+            page_url: '/api/popular'
           });
         }
       }
@@ -22786,7 +22787,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     //Allows user to create a pun
     create: function create(_ref5, data) {
-      var commit = _ref5.commit;
+      var commit = _ref5.commit,
+          dispatch = _ref5.dispatch;
       return _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
@@ -22796,6 +22798,10 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
               case 0:
                 _context5.next = 2;
                 return _services_user_service_js__WEBPACK_IMPORTED_MODULE_4__["default"].CREATE(data.title, data.body).then(function (response) {
+                  //Reset pagination upon pun creation
+                  dispatch('home', {
+                    page_url: '/api/popular'
+                  });
                   commit('create', response.data);
                   return Promise.resolve();
                 })["catch"](function (err) {
@@ -22931,7 +22937,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     //Allows a user to like a pun
     like: function like(_ref10, data) {
-      var commit = _ref10.commit;
+      var commit = _ref10.commit,
+          dispatch = _ref10.dispatch;
       return _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10() {

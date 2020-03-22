@@ -33,7 +33,7 @@
                     <p>{{ pun.body }}</p>
                     <div class="text-right">
                         <p>Likes: {{ pun.likes }}</p>
-                        <button v-if="!pun.liked" v-on:click="like(pun.id)" type="button" class="btn btn-primary btn-success">Like</button>
+                        <button v-if="!pun.liked"  v-on:click="like(pun.id)" type="button" class="btn btn-primary btn-success">Like</button>
                         <button v-if="pun.liked" type="button" class="btn btn-primary btn-success">Liked</button>
                     </div>
                 </div>
@@ -106,7 +106,8 @@ export default {
 
                 if(!found) {
                     this.$store.dispatch('like', {
-                        id: id
+                        id: id,
+                        page_url: '/api/popular'
                     });
                 }
             }

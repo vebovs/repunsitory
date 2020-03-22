@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Pun;
 use App\Like;
 use App\Http\Resources\Pun as PunResource;
+use App\Http\Controllers\PublicPunController;
 
 class PunController extends Controller
 {
@@ -16,12 +17,15 @@ class PunController extends Controller
      */
     protected $user;
 
+    private $ppc_service;
+
     /**
      * PunController constructor.
      */
     public function __construct(Request $request)
     {
         $this->user = JWTAuth::parseToken()->authenticate(); //Check if user is authenticated before performing any actions
+        $this->ppc_service = new PublicPunController();
     }
 
     //Gets all puns created by user
@@ -167,7 +171,12 @@ class PunController extends Controller
 
     //Allowes users to like puns
     public function like($id) {
-        $like = $this->user->likes()->where('pun_id', $id); //Checks if user already has liked this pun
+    
+        //Checks if user already has liked this pun
+        $like = Like::select('*')->where([
+            ['user_email', '=', $this->user->email],
+            ['pun_id', '=', $id]
+        ]);
 
         if($like->count()) {
             return response()->json([
@@ -180,6 +189,7 @@ class PunController extends Controller
         $updated = $pun->increment('likes'); //increments the puns likes count by 1
 
         $like = new Like();
+        $like->user_email = $this->user->email;
         $like->pun_id = $id;
         $this->user->likes()->save($like); //Adds the pun to the users liked puns
 
