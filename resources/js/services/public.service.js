@@ -16,7 +16,7 @@ class Public {
         return await axios.get(url, {
             withCredentials: true
         })
-        .catch(err => Promise.reject(err));
+        .catch(err => console.log(err.response.data.message));
     }
 }
 
