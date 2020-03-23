@@ -21,18 +21,18 @@ Route::get('popular', 'PublicPunController@popular');
 Route::get('recent', 'PublicPunController@recent');
 
 //User login
-Route::post('login', 'ApiController@login');
+Route::post('login', 'APIController@login');
 
 //User registration
-Route::post('register', 'ApiController@register');
+Route::post('register', 'APIController@register');
 
 Route::group(['middleware' => 'jwt.auth'], function () {
 
     //Fetch user data upon page refresh
-    Route::get('refresh', 'ApiController@refresh');
+    Route::get('refresh', 'APIController@refresh');
 
     //User logout
-    Route::get('logout', 'ApiController@logout');
+    Route::get('logout', 'APIController@logout');
 
     //Get puns liked by user
     Route::get('user/liked', 'UserController@liked');
