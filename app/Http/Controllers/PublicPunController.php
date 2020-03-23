@@ -21,6 +21,7 @@ class PublicPunController extends Controller
             ->orderBy('puns.created_at', 'asc')
             ->paginate(10);
             
+        $puns->setPath('/');
 
         return PunResource::collection($puns);
     }
@@ -30,6 +31,8 @@ class PublicPunController extends Controller
             ->join('users', 'puns.user_id', '=', 'users.id')
             ->orderBy('puns.created_at', 'desc')
             ->paginate(10);
+
+        $puns->setPath('/');
 
         return PunResource::collection($puns);
     }
