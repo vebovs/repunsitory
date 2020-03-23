@@ -21,8 +21,6 @@ class PublicPunController extends Controller
             ->orderBy('puns.created_at', 'asc')
             ->paginate(10);
 
-        $puns->setPath('https://' . Request::getHttpHost() . '/' . Request::path());
-
         return PunResource::collection($puns);
     }
 

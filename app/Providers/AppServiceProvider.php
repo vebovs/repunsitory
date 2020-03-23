@@ -26,5 +26,11 @@ class AppServiceProvider extends ServiceProvider
     {
         \URL::forceScheme('https');
         Schema::defaultStringLength(191);
+
+        \Illuminate\Pagination\AbstractPaginator::currentPathResolver(function () {
+            /** @var \Illuminate\Routing\UrlGenerator $url */
+           $url = app('url');
+           return $url->current();
+        });
     }
 }
