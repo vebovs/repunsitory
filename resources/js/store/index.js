@@ -293,12 +293,14 @@ export default new Vuex.Store({
 
       //Checks to see if there are any puns the user has previosly liked an sets them as liked
       //To be used to generate the correct type of like button (depending on if the user already has liked the pun)
-      for(let i = 0; i < state.home.length; i++) {
-        for(let j = 0; j < state.liked_puns.length; j++) {
-          if(state.home[i].id === state.liked_puns[j].id) {
-              state.home[i].liked = true;
-            }
-         }
+      if(status) {
+        for(let i = 0; i < state.home.length; i++) {
+          for(let j = 0; j < state.liked_puns.length; j++) {
+            if(state.home[i].id === state.liked_puns[j].id) {
+                state.home[i].liked = true;
+              }
+           }
+        }
       }
     },
 
