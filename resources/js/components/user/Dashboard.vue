@@ -151,7 +151,13 @@ export default {
     },
 
     display(id) {
-      this.edit = this.puns.find(e => e.id === id);
+      this.puns.filter(e => {
+        if(e.id === id) {
+          this.edit.id = e.id;
+          this.edit.title = e.title;
+          this.edit.body = e.body;
+        }
+      });
     },
 
     update(id) {

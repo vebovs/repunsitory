@@ -24,13 +24,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \URL::forceScheme('https');
-        Schema::defaultStringLength(191);
+        //\URL::forceScheme('https'); //For deployment using https
+        //Schema::defaultStringLength(191);
 
-        \Illuminate\Pagination\AbstractPaginator::currentPathResolver(function () {
+        //\Illuminate\Pagination\AbstractPaginator::currentPathResolver(function () {
             /** @var \Illuminate\Routing\UrlGenerator $url */
-           $url = app('url');
+           /*$url = app('url');
            return $url->current();
-        });
+        });*/
     }
 }

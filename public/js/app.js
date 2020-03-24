@@ -2590,8 +2590,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     display: function display(id) {
-      this.edit = this.puns.find(function (e) {
-        return e.id === id;
+      var _this2 = this;
+
+      this.puns.filter(function (e) {
+        if (e.id === id) {
+          _this2.edit.id = e.id;
+          _this2.edit.title = e.title;
+          _this2.edit.body = e.body;
+        }
       });
     },
     update: function update(id) {
@@ -2607,10 +2613,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     destroy: function destroy() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$store.dispatch('delete').then(function () {
-        _this2.$router.push({
+        _this3.$router.push({
           name: 'home'
         });
       });
@@ -22324,7 +22330,7 @@ function () {
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url, {
                   withCredentials: true
                 })["catch"](function (err) {
-                  return Promise.reject(err);
+                  return console.log(err.response.data.message);
                 });
 
               case 2:
@@ -23265,10 +23271,12 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       }; //Checks to see if there are any puns the user has previosly liked an sets them as liked
       //To be used to generate the correct type of like button (depending on if the user already has liked the pun)
 
-      for (var i = 0; i < state.home.length; i++) {
-        for (var j = 0; j < state.liked_puns.length; j++) {
-          if (state.home[i].id === state.liked_puns[j].id) {
-            state.home[i].liked = true;
+      if (status) {
+        for (var i = 0; i < state.home.length; i++) {
+          for (var j = 0; j < state.liked_puns.length; j++) {
+            if (state.home[i].id === state.liked_puns[j].id) {
+              state.home[i].liked = true;
+            }
           }
         }
       }
